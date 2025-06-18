@@ -32,8 +32,7 @@ export class MyComponent {
 
   render() {
     // Main container for the dropdown, centered on the screen
-    <div class="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div part="text">yooyouo</div>
+    return <div class="flex items-center justify-center min-h-screen bg-gray-100 p-4">
       <div class="relative inline-block text-left">
         {/* Main dropdown button (the orange square) */}
         <div>
@@ -43,14 +42,14 @@ export class MyComponent {
             id="menu-button"
             aria-expanded={open}
             aria-haspopup="true"
-            onClick={()=>{this.open = !this.open}}
+            onClick={()=>{this.open = !this.open; console.log("clicked, now " + this.open)}}
           >
-            Menu
+            Zapp
           </button>
         </div>
 
         {/* Dropdown panel, conditionally rendered based on 'isOpen' state */}
-        {open && (
+        {this.open && (
           <div
             class="origin-top-right absolute mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 p-4"
             role="menu"

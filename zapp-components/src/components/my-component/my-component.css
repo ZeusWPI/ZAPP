@@ -1,3 +1,7 @@
 :host {
   display: block;
 }
+
+my-component::part(text) {
+  color: white;
+}
