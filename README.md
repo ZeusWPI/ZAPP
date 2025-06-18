@@ -1,4 +1,4 @@
-# zapp
+# ZAPP
 
 Zeus App Picker Portal
 
