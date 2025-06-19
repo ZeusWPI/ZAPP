@@ -1,11 +1,11 @@
 import { Component, Prop, h, State } from '@stencil/core';
 
 @Component({
-  tag: 'my-component',
-  styleUrl: 'my-component.css',
+  tag: 'zapp-poc',
+  styleUrl: 'zapp-poc.css',
   shadow: true,
 })
-export class MyComponent {
+export class ZappPOC {
   
   
   @Prop() apps: string;

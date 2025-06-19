@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML 5 Boilerplate</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <script
+      type="module"
+      src="http://localhost:3000/zapp-components/zapp-components.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="http://localhost:3000/zapp-components/zapp-components.js"
+    ></script>
+  </head>
+  <body>
+    <div class="topnav">
+      <a class="active" href="#home">Home</a>
+      <a href="#news">News</a>
+      <a href="#contact">Contact</a>
+      <a href="#about">About</a>
+      <zapp-poc
+        apps="zauth,tap,tab,zout,mattermost,git,haldis,gamification,zess,events,pix,zinc"
+      ></zapp-poc>
+    </div>
+  </body>
+</html>

@@ -6,34 +6,34 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface MyComponent {
+    interface ZappPoc {
         "apps": string;
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLZappPocElement extends Components.ZappPoc, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLZappPocElement: {
+        prototype: HTMLZappPocElement;
+        new (): HTMLZappPocElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "zapp-poc": HTMLZappPocElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
+    interface ZappPoc {
         "apps"?: string;
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "zapp-poc": ZappPoc;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "zapp-poc": LocalJSX.ZappPoc & JSXBase.HTMLAttributes<HTMLZappPocElement>;
         }
     }
 }
