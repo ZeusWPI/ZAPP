@@ -7,6 +7,9 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface ZappPoc {
+        /**
+          * @default 'tap,zauth,tab,zout,mattermost,git,haldis,gamification,zess,events,pix,zinc'
+         */
         "apps": string;
     }
 }
@@ -23,6 +26,9 @@ declare global {
 }
 declare namespace LocalJSX {
     interface ZappPoc {
+        /**
+          * @default 'tap,zauth,tab,zout,mattermost,git,haldis,gamification,zess,events,pix,zinc'
+         */
         "apps"?: string;
     }
     interface IntrinsicElements {

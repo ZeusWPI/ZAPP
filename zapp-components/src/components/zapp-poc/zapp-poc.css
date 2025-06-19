@@ -2,6 +2,9 @@
   display: block;
 }
 
-my-component::part(text) {
-  color: white;
+zapp-poc::part(cookiesim) {
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
