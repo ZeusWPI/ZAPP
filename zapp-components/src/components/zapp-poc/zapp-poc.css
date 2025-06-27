@@ -8,3 +8,8 @@ zapp-poc::part(cookiesim) {
   align-items: center;
   justify-content: center;
 }
+
+zapp-poc::part(openbutton) {
+  background: url('assets/openbutton_beta1.svg');
+  background-size:contain ;
+}

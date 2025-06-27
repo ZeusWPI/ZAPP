@@ -14,9 +14,10 @@
 
 ## Shadow Parts
 
-| Part          | Description |
-| ------------- | ----------- |
-| `"cookiesim"` |             |
+| Part           | Description |
+| -------------- | ----------- |
+| `"cookiesim"`  |             |
+| `"openbutton"` |             |
 
 
 ----------------------------------------------

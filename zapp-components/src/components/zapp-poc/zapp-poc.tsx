@@ -4,6 +4,7 @@ const testcookiekey = 'zapptestcookie'
 @Component({
   tag: 'zapp-poc',
   styleUrl: 'zapp-poc.css',
+  assetsDirs: ['../assets'],
   shadow: true,
 })
 export class ZappPOC {
@@ -67,15 +68,15 @@ export class ZappPOC {
         <div>
           <button
             type="button"
-            class="inline-flex justify-center items-center w-20 h-20 rounded-lg bg-orange-500 text-white font-bold text-xl shadow-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200"
+            class="inline-flex justify-center items-center w-20 h-20 rounded-lg text-white font-bold text-xl shadow-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200"
             id="menu-button"
+            part='openbutton'
             aria-expanded={open}
             aria-haspopup="true"
             onClick={() => {
               this.open = !this.open;
             }}
           >
-            Zapp
           </button>
         </div>
 
