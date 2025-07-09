@@ -87,6 +87,7 @@ export class ZappPOC {
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="menu-button"
+            part="dropdown"
           >
             <div class="font-semibold text-xl" part="cookiesim">
               <input onInput={e => this.handleCheck(e)} class="m-4 w-6 h-6" type="checkbox" checked={this.checked}/>
