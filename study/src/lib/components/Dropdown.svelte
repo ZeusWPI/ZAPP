@@ -1,8 +1,23 @@
 <script>
-  let apps =
-    "tap,zauth,tab,zout,mattermost,git,haldis,gamification,zess,events,pix,zinc".split(
-      ","
-    );
+  // let apps =
+  //   "tap,zauth,tab,zout,mattermost,git,haldis,gamification,zess,events,pix,zinc".split(
+  //     ","
+  //   );
+
+  let apps = [
+    {img: 'Gitea_Logo.svg'},
+    {img: 'haldis_black.png'},
+    {img: 'Mattermost_icon_denim.svg'},
+    {img: 'tap.ico'},
+    {img: 'tab.ico'},
+    {img: 'zess.svg'},
+    {img: 'zeus.svg'},
+    {img: 'Gitea_Logo.svg'},
+    {img: 'Mattermost_icon_denim.svg'},
+    {img: 'tap.ico'},
+    {img: 'zess.svg'},
+    {img: 'zeus.svg'},
+]
 </script>
 
 <main>
@@ -24,14 +39,17 @@
     </svg>
     <div class="noisyspectrum"></div>
   </div>
+  <img id="noisesvg" src="/noise_a.svg" alt="noise svg" style="width: 10em;" />
+
 
   <div class="w95container">
     <svg width="0" height="0" aria-hidden="true">
       <filter id="grain-flat" color-interpolation-filters="sRGB">
         <feTurbulence
-          type="turbulence"
-          baseFrequency="0.813"
+          type="fractalNoise"
+          baseFrequency="0.913"
           numOctaves="4"
+          seed="21"
           result="noise"
         ></feTurbulence>
 
@@ -40,21 +58,23 @@
           in2="SourceGraphic"
           operator="arithmetic"
           k1="0"
-          k2="0.3"
-          k3="1"
+          k2="0.4"
+          k3="1.0"
           k4="0"
         ></feComposite>
       </filter>
     </svg>
-    <div class="w95button" style="width: 20em; aspect-ratio: 1;"></div>
+    <div class="w95button" style="width: 20em; aspect-ratio: 1;">
+      <div class="w95in1"></div>
+    </div>
   </div>
+
 
   
   <div id="concept">
     <img src="/zapp-concept-1.png" alt="concept" />
   </div>
   
-  <img id="noisesvg" src="/noise_a.svg" alt="noise svg" style="width: 10em;" />
   <div id="dropdown">
     <div
       class="origin-top-right absolute mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 p-4"
@@ -68,17 +88,18 @@
       ></div>
       <div class="grid grid-cols-3 gap-2" role="none">
         {#each apps as app}
-          <div>
+          <div class="w95in1">
             <button
-              class="w95button flex items-center justify-center w-16 h-16 rounded-md text-white font-semibold shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
-              role="menuitem"
-              on:click={() => {
-                console.log(`${app} button clicked!`);
-                // Optionally close the dropdown after a button is clicked
-                // setIsOpen(false);
-              }}
+            class="w95button flex items-center justify-center w-16 h-16 rounded-md text-white font-semibold shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+            role="menuitem"
+            aria-label={app.img}
+            on:click={() => {
+              console.log(`${app} button clicked!`);
+              // Optionally close the dropdown after a button is clicked
+              // setIsOpen(false);
+            }}
             >
-              {app}
+              <img src={`services/${app.img}`} alt={app.img} class="w95icon"/>
             </button>
           </div>
         {/each}
@@ -98,8 +119,45 @@
     width: 16em;
   }
 
-  .w95button {
-    background-color: #a0a0a4;
+  .w95icon{
+    width: 3.6em;
+    aspect-ratio: 1;
+    z-index: 100;
+    filter: none;
+    border-radius: 6px;
+    background-color: transparent;
+  }
+
+  .w95button:before {
+    content: " ";
+    position: absolute;
+    z-index: -1;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    border-radius: 6px;
+    border: 1px solid rgb(219, 203, 203);
+  }
+
+  .w95button::before {
+    filter: url(#grain-flat);
+    clip-path: inset(0 0 0 0);
+    border-radius: 6px;
+    border: 0.8px solid black;
+    padding: 2px;
+    background-clip: content-box; /* support: IE9+ */
+    background-color: #969090;
+    /* outline: 18px solid gray; */
+  }
+
+  .w95in1{
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    border: 0.8px solid black;
+    padding: 2px;
+    background-color: #d6d6d6;
     filter: url(#grain-flat);
     clip-path: inset(0 0 0 0);
   }
