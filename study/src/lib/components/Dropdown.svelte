@@ -5,19 +5,19 @@
   //   );
 
   let apps = [
-    {img: 'Gitea_Logo.svg'},
-    {img: 'haldis_black.png'},
-    {img: 'Mattermost_icon_denim.svg'},
-    {img: 'tap.ico'},
-    {img: 'tab.ico'},
-    {img: 'zess.svg'},
-    {img: 'zeus.svg'},
-    {img: 'Gitea_Logo.svg'},
-    {img: 'Mattermost_icon_denim.svg'},
-    {img: 'tap.ico'},
-    {img: 'zess.svg'},
-    {img: 'zeus.svg'},
-]
+    { img: "Gitea_Logo.svg" },
+    { img: "haldis_black.png" },
+    { img: "Mattermost_icon_denim.svg" },
+    { img: "tap.ico" },
+    { img: "tab.ico" },
+    { img: "zess.svg" },
+    { img: "zeus.svg" },
+    { img: "Gitea_Logo.svg" },
+    { img: "Mattermost_icon_denim.svg" },
+    { img: "tap.ico" },
+    { img: "zess.svg" },
+    { img: "zeus.svg" },
+  ];
 </script>
 
 <main>
@@ -40,7 +40,6 @@
     <div class="noisyspectrum"></div>
   </div>
   <img id="noisesvg" src="/noise_a.svg" alt="noise svg" style="width: 10em;" />
-
 
   <div class="w95container">
     <svg width="0" height="0" aria-hidden="true">
@@ -69,12 +68,10 @@
     </div>
   </div>
 
-
-  
   <div id="concept">
     <img src="/zapp-concept-1.png" alt="concept" />
   </div>
-  
+
   <div id="dropdown">
     <div
       class="origin-top-right absolute mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 p-4"
@@ -88,19 +85,36 @@
       ></div>
       <div class="grid grid-cols-3 gap-2" role="none">
         {#each apps as app}
-          <div class="w95in1">
-            <button
-            class="w95button flex items-center justify-center w-16 h-16 rounded-md text-white font-semibold shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
-            role="menuitem"
-            aria-label={app.img}
-            on:click={() => {
-              console.log(`${app} button clicked!`);
-              // Optionally close the dropdown after a button is clicked
-              // setIsOpen(false);
-            }}
-            >
-              <img src={`services/${app.img}`} alt={app.img} class="w95icon"/>
-            </button>
+          <div class="w-16 h-16">
+            <div class="w95in1 w-16 h-16 style absolute ">
+              <button
+                class="w95button style flex items-center justify-center rounded-md text-white font-semibold shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+                role="menuitem"
+                style="width: 100%; height: 100%;"
+                aria-label={app.img}
+                on:click={() => {
+                  console.log(`${app.img} button clicked!`);
+                  // Optionally close the dropdown after a button is clicked
+                  // setIsOpen(false);
+                }}
+              >
+              </button>
+            </div>
+
+            <div class="absolute" style="pointer-events: none;">
+              <button
+                class="w95button cancelfilter flex items-center justify-center w-16 h-16 rounded-md text-white font-semibold shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+                role="menuitem"
+                style="pointer-events: none;"
+                aria-label={app.img}
+              >
+                <img
+                  src={`services/${app.img}`}
+                  alt={app.img}
+                  class="w95icon cancelfilter"
+                />
+              </button>
+            </div>
           </div>
         {/each}
       </div>
@@ -119,11 +133,15 @@
     width: 16em;
   }
 
-  .w95icon{
-    width: 3.6em;
+  .w95icon {
+    width: 3.1em;
     aspect-ratio: 1;
     z-index: 100;
     filter: none;
+    border-radius: 3px;
+  }
+
+  .w95button .style {
     border-radius: 6px;
     background-color: transparent;
   }
@@ -136,38 +154,50 @@
     left: 0px;
     right: 0px;
     bottom: 0px;
+  }
+
+  .w95button .style::before {
     border-radius: 6px;
     border: 1px solid rgb(219, 203, 203);
   }
 
   .w95button::before {
-    filter: url(#grain-flat);
     clip-path: inset(0 0 0 0);
-    border-radius: 6px;
-    border: 0.8px solid black;
     padding: 2px;
-    background-clip: content-box; /* support: IE9+ */
-    background-color: #969090;
     /* outline: 18px solid gray; */
   }
 
-  .w95in1{
-    width: 100%;
-    height: 100%;
+  .w95button .style::before {
+    filter: url(#grain-flat);
+    background-clip: content-box; /* support: IE9+ */
+    background-color: #969090;
     border-radius: 6px;
     border: 0.8px solid black;
-    padding: 2px;
-    background-color: #d6d6d6;
-    filter: url(#grain-flat);
+  }
+
+  .w95in1 {
+    padding: 0px;
     clip-path: inset(0 0 0 0);
   }
 
+  .w95in1 .style {
+    border-radius: 6px;
+    filter: url(#grain-flat);
+    border: 0.8px solid black;
+    background-color: #d6d6d6;
+    transition: 0.3s;
+  }
+
+  .w95in1 .style:hover{
+    background-color: orange;
+  }
+
   .container {
-    --b: linear-gradient(90deg, hsl(90, 100%, 0%), hsl(90, 100%, 65%)),
+    --b: linear-gradient(90deg, hsl(90, 100%, 0%), hsl(36, 100%, 65%)),
       linear-gradient(
         141.42857142857144deg,
         hsl(141.42857142857144, 100%, 0%),
-        hsl(141.42857142857144, 100%, 65%)
+        hsl(36, 82%, 53%)
       ),
       linear-gradient(
         192.85714285714286deg,
@@ -182,17 +212,17 @@
       linear-gradient(
         295.7142857142857deg,
         hsl(295.7142857142857, 100%, 0%),
-        hsl(295.7142857142857, 100%, 65%)
+        hsl(91, 100%, 65%)
       ),
       linear-gradient(
         347.14285714285717deg,
         hsl(347.14285714285717, 100%, 0%),
-        hsl(347.14285714285717, 100%, 65%)
+        hsl(219, 100%, 65%)
       ),
       linear-gradient(
         38.571428571428555deg,
         hsl(38.571428571428555, 100%, 0%),
-        hsl(38.571428571428555, 100%, 65%)
+        hsl(27, 90%, 55%)
       );
   }
 
@@ -220,5 +250,15 @@
     clip-path: inset(0 0 0 0);
 
     filter: url(#grain);
+  }
+
+  .clearhover:hover {
+    opacity: 0%;
+  }
+
+  .cancelfilter {
+    filter: none;
+    background: none;
+    background-color: transparent;
   }
 </style>
