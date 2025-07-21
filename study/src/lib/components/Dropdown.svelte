@@ -68,13 +68,35 @@
     </div>
   </div>
 
+  <svg width="0" height="0" aria-hidden="true">
+      <filter id="icongrain" color-interpolation-filters="sRGB">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.913"
+          numOctaves="4"
+          seed="21"
+          result="noise2"
+        ></feTurbulence>
+
+        <feComposite
+          in="noise2"
+          in2="SourceGraphic"
+          operator="arithmetic"
+          k1="0.7"
+          k2="0"
+          k3="1.0"
+          k4="0"
+        ></feComposite>
+      </filter>
+    </svg>
+
   <div id="concept">
     <img src="/zapp-concept-1.png" alt="concept" />
   </div>
 
   <div id="dropdown">
     <div
-      class="origin-top-right absolute mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 p-4"
+      class="origin-top-right absolute mt-2 w-95 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 p-4"
       role="menu"
       aria-orientation="vertical"
       aria-labelledby="menu-button"
@@ -83,27 +105,29 @@
       <div
         class="container noisyspectrumbg absolute inset-0 rounded-md -z-10"
       ></div>
-      <div class="grid grid-cols-3 gap-2" role="none">
+      <div class="grid grid-cols-3 gap-5" role="none">
         {#each apps as app}
-          <div class="w-16 h-16">
-            <div class="w95in1 w-16 h-16 style absolute ">
-              <button
-                class="w95button style flex items-center justify-center rounded-md text-white font-semibold shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
-                role="menuitem"
-                style="width: 100%; height: 100%;"
-                aria-label={app.img}
-                on:click={() => {
-                  console.log(`${app.img} button clicked!`);
-                  // Optionally close the dropdown after a button is clicked
-                  // setIsOpen(false);
-                }}
-              >
-              </button>
+          <div class="w-25 h-25">
+            <div class="w95in1 w-25 h-25 style absolute ">
+              <div class="" style="border-radius: 6px; width: 100%; height: 100%;">
+                <button
+                  class="w95button style flex items-center justify-center rounded-md text-white font-semibold shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+                  role="menuitem"
+                  style="width: 100%; height: 100%;"
+                  aria-label={app.img}
+                  on:click={() => {
+                    console.log(`${app.img} button clicked!`);
+                    // Optionally close the dropdown after a button is clicked
+                    // setIsOpen(false);
+                  }}
+                >
+                </button>
+              </div>
             </div>
 
             <div class="absolute" style="pointer-events: none;">
               <button
-                class="w95button cancelfilter flex items-center justify-center w-16 h-16 rounded-md text-white font-semibold shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+                class="flex items-center justify-center w-25 h-25 rounded-md text-white font-semibold shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
                 role="menuitem"
                 style="pointer-events: none;"
                 aria-label={app.img}
@@ -111,7 +135,7 @@
                 <img
                   src={`services/${app.img}`}
                   alt={app.img}
-                  class="w95icon cancelfilter"
+                  class="w95icon"
                 />
               </button>
             </div>
@@ -134,11 +158,12 @@
   }
 
   .w95icon {
-    width: 3.1em;
+    width: 5.1em;
     aspect-ratio: 1;
     z-index: 100;
     filter: none;
     border-radius: 3px;
+    filter: url(#icongrain);
   }
 
   .w95button .style {
@@ -183,7 +208,7 @@
   .w95in1 .style {
     border-radius: 6px;
     filter: url(#grain-flat);
-    border: 0.8px solid black;
+    border: 1px solid black;
     background-color: #d6d6d6;
     transition: 0.3s;
   }
