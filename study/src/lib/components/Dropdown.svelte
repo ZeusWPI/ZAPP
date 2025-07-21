@@ -3,6 +3,7 @@
   //   "tap,zauth,tab,zout,mattermost,git,haldis,gamification,zess,events,pix,zinc".split(
   //     ","
   //   );
+  import '$lib/css/win95.css'
 
   let apps = [
     { img: "Gitea_Logo.svg" },
@@ -69,78 +70,69 @@
   </div>
 
   <svg width="0" height="0" aria-hidden="true">
-      <filter id="icongrain" color-interpolation-filters="sRGB">
-        <feTurbulence
-          type="fractalNoise"
-          baseFrequency="0.913"
-          numOctaves="4"
-          seed="21"
-          result="noise2"
-        ></feTurbulence>
+    <filter id="icongrain" color-interpolation-filters="sRGB">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.913"
+        numOctaves="4"
+        seed="21"
+        result="noise2"
+      ></feTurbulence>
 
-        <feComposite
-          in="noise2"
-          in2="SourceGraphic"
-          operator="arithmetic"
-          k1="0.7"
-          k2="0"
-          k3="1.0"
-          k4="0"
-        ></feComposite>
-      </filter>
-    </svg>
+      <feComposite
+        in="noise2"
+        in2="SourceGraphic"
+        operator="arithmetic"
+        k1="0.7"
+        k2="0"
+        k3="1.0"
+        k4="0"
+      ></feComposite>
+    </filter>
+  </svg>
 
   <div id="concept">
-    <img src="/zapp-concept-1.png" alt="concept" />
+    <img src="/zapp-concept-1.png" alt="concept" style="width: 22em;" />
   </div>
 
   <div id="dropdown">
     <div
-      class="origin-top-right absolute mt-2 w-95 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 p-4"
+      class="dropdown origin-top-right absolute mt-2 w-95 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
       role="menu"
       aria-orientation="vertical"
       aria-labelledby="menu-button"
       part="dropdown"
     >
-      <div
-        class="container noisyspectrumbg absolute inset-0 rounded-md -z-10"
-      ></div>
-      <div class="grid grid-cols-3 gap-5" role="none">
-        {#each apps as app}
-          <div class="w-25 h-25">
-            <div class="w95in1 w-25 h-25 style absolute ">
-              <div class="" style="border-radius: 6px; width: 100%; height: 100%;">
+      <div class="p-4 cborder1 container ">
+        <div
+          class="noisyspectrumbg absolute inset-0 rounded-md -z-10"
+        ></div>
+        <div class="grid grid-cols-3 gap-5" role="none">
+          {#each apps as app}
+            <div class="w-25 h-25">
+              <button class="w95in1 w-25 h-25 style absolute" aria-label={app.img}>
+                    <div class="bborder1 w95button style" style="width: 100%; height: 100%">
+
+                    </div>
+              </button>
+
+              <div class="absolute" style="pointer-events: none;">
                 <button
-                  class="w95button style flex items-center justify-center rounded-md text-white font-semibold shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+                  class="flex items-center justify-center w-25 h-25 rounded-md text-white font-semibold shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
                   role="menuitem"
-                  style="width: 100%; height: 100%;"
+                  style="pointer-events: none;"
                   aria-label={app.img}
-                  on:click={() => {
-                    console.log(`${app.img} button clicked!`);
-                    // Optionally close the dropdown after a button is clicked
-                    // setIsOpen(false);
-                  }}
                 >
+                  <img
+                    src={`services/${app.img}`}
+                    alt={app.img}
+                    class="w95icon"
+                  />
                 </button>
               </div>
             </div>
-
-            <div class="absolute" style="pointer-events: none;">
-              <button
-                class="flex items-center justify-center w-25 h-25 rounded-md text-white font-semibold shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
-                role="menuitem"
-                style="pointer-events: none;"
-                aria-label={app.img}
-              >
-                <img
-                  src={`services/${app.img}`}
-                  alt={app.img}
-                  class="w95icon"
-                />
-              </button>
-            </div>
-          </div>
-        {/each}
+          {/each}
+        </div>
       </div>
     </div>
   </div>
@@ -157,13 +149,28 @@
     width: 16em;
   }
 
+  .dropdown{
+    border: 4px solid green;
+    border-radius: 6px;
+  }
+
+  .cborder1{
+    border-radius: 6px;
+    border: 4px solid red;
+  }
+
+  .bborder1{
+    border-radius: 8px;
+    border: 4px solid #C0C0C0;
+  }
+
   .w95icon {
     width: 5.1em;
     aspect-ratio: 1;
     z-index: 100;
     filter: none;
     border-radius: 3px;
-    filter: url(#icongrain);
+    filter: drop-shadow(4px 4px rgba(0, 0, 0, 0.329)) url(#icongrain);
   }
 
   .w95button .style {
@@ -213,7 +220,7 @@
     transition: 0.3s;
   }
 
-  .w95in1 .style:hover{
+  .w95in1 .style:hover {
     background-color: orange;
   }
 
