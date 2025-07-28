@@ -3,7 +3,7 @@
   //   "tap,zauth,tab,zout,mattermost,git,haldis,gamification,zess,events,pix,zinc".split(
   //     ","
   //   );
-  import '$lib/css/win95.css'
+  import "$lib/css/win95.css";
 
   let apps = [
     { img: "Gitea_Logo.svg" },
@@ -92,7 +92,7 @@
   </svg>
 
   <div id="concept">
-    <img src="/zapp-concept-1.png" alt="concept" style="width: 22em;" />
+    <img src="/zapp-concept-1.png" alt="concept" style="width: 24em;" />
   </div>
 
   <div id="dropdown">
@@ -103,35 +103,48 @@
       aria-labelledby="menu-button"
       part="dropdown"
     >
-      <div class="p-4 cborder1 container ">
-        <div
-          class="noisyspectrumbg absolute inset-0 rounded-md -z-10"
-        ></div>
-        <div class="grid grid-cols-3 gap-5" role="none">
-          {#each apps as app}
-            <div class="w-25 h-25">
-              <button class="w95in1 w-25 h-25 style absolute" aria-label={app.img}>
-                    <div class="bborder1 w95button style" style="width: 100%; height: 100%">
-
+      <div class="bborder bborder1">
+        <div class="dborder dborder1">
+          <div class="dborder dborder3">
+            <div class="dborder dborder4">
+              <div class="p-4 cborder1 container">
+                <div class="noisyspectrumbg absolute inset-0 rounded-md -z-10"></div>
+                <div class="grid grid-cols-3 gap-5" role="none">
+                  {#each apps as app}
+                    <div class="w-25 h-25">
+                      <button
+                        class="w95in1 w-25 h-25 style absolute"
+                        aria-label={app.img}
+                      >
+                        <div class="bborder bborder1">
+                          <div class="bborder bborder2">
+                            <div class="bborder bborder3">
+                              <div class="bborder bborder4"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </button>
+        
+                      <div class="absolute" style="pointer-events: none;">
+                        <button
+                          class="flex items-center justify-center w-25 h-25 rounded-md text-white font-semibold shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+                          role="menuitem"
+                          style="pointer-events: none;"
+                          aria-label={app.img}
+                        >
+                          <img
+                            src={`services/${app.img}`}
+                            alt={app.img}
+                            class="w95icon"
+                          />
+                        </button>
+                      </div>
                     </div>
-              </button>
-
-              <div class="absolute" style="pointer-events: none;">
-                <button
-                  class="flex items-center justify-center w-25 h-25 rounded-md text-white font-semibold shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
-                  role="menuitem"
-                  style="pointer-events: none;"
-                  aria-label={app.img}
-                >
-                  <img
-                    src={`services/${app.img}`}
-                    alt={app.img}
-                    class="w95icon"
-                  />
-                </button>
+                  {/each}
+                </div>
               </div>
             </div>
-          {/each}
+          </div>
         </div>
       </div>
     </div>
@@ -139,6 +152,18 @@
 </main>
 
 <style>
+  @property --rbgcolor1 {
+    syntax: "<color>";
+    initial-value: rgba(0,0,0,0);
+    inherits: false;
+  }
+
+  @property --rbgcolor2 {
+    syntax: "<color>";
+    initial-value: rgba(0,0,0,0);
+    inherits: false;
+  }
+
   main {
     display: flex;
     height: 100vh;
@@ -149,23 +174,63 @@
     width: 16em;
   }
 
-  .dropdown{
-    border: 4px solid green;
+  .dropdown {
     border-radius: 6px;
   }
 
-  .cborder1{
+  .cborder1 {
     border-radius: 6px;
-    border: 4px solid red;
   }
 
-  .bborder1{
+  .bborder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .bborder1 {
     border-radius: 8px;
-    border: 4px solid #C0C0C0;
+    border: 1.6px solid black;
+    background-color: #d6d6d6;
+    transition: 0.3s;
+    clip-path: inset(0 0 0 0);
+  }
+
+  .bborder2 {
+    filter: url(#grain-flat);
+    border: 0.8px solid rgb(149, 177, 177);
+    border-radius: 6px;
+    height: 100%;
+    width: 100%;
+    transition: --rbgcolor1 0.3s, --rbgcolor2 0.3s;
+    background: radial-gradient(var(--rbgcolor1), var(--rbgcolor2));
+  }
+
+  .bborder2:hover {
+    /* background: orange; */
+    --rbgcolor1: #e66465;
+    --rbgcolor2: #9198e5;
+  }
+
+  .bborder3 {
+    border: 2.2px solid rgb(188, 203, 203);
+
+    border-radius: 6px;
+    height: 100%;
+    width: 100%;
+  }
+
+  .bborder4 {
+    border: 1.4px solid black;
+    border-radius: 6px;
+    height: 100%;
+    width: 100%;
   }
 
   .w95icon {
-    width: 5.1em;
+    width: 4.8em;
     aspect-ratio: 1;
     z-index: 100;
     filter: none;
@@ -173,10 +238,10 @@
     filter: drop-shadow(4px 4px rgba(0, 0, 0, 0.329)) url(#icongrain);
   }
 
-  .w95button .style {
+  /* .w95button .style {
     border-radius: 6px;
     background-color: transparent;
-  }
+  } */
 
   .w95button:before {
     content: " ";
@@ -188,7 +253,7 @@
     bottom: 0px;
   }
 
-  .w95button .style::before {
+  /* .w95button .style::before {
     border-radius: 6px;
     border: 1px solid rgb(219, 203, 203);
   }
@@ -196,20 +261,20 @@
   .w95button::before {
     clip-path: inset(0 0 0 0);
     padding: 2px;
-    /* outline: 18px solid gray; */
   }
 
   .w95button .style::before {
     filter: url(#grain-flat);
-    background-clip: content-box; /* support: IE9+ */
+    background-clip: content-box;
     background-color: #969090;
     border-radius: 6px;
     border: 0.8px solid black;
-  }
+  } */
 
   .w95in1 {
     padding: 0px;
-    clip-path: inset(0 0 0 0);
+    /* clip-path: inset(0 0 0 0); */
+    filter: drop-shadow(4px 4px rgba(0, 0, 0, 0.329)) url(#icongrain);
   }
 
   .w95in1 .style {
