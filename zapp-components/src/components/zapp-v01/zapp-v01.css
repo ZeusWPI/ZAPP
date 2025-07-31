@@ -1,0 +1,23 @@
+:host {
+  display: block;
+}
+
+zapp-v01::part(cookiesim) {
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+zapp-v01::part(openbutton) {
+  background: url('assets/openbutton_beta1.svg');
+  background-size:contain ;
+}
+
+zapp-v01::part(dropdown){
+  --bgcolor: rgba(223, 221, 221, 0.5);
+  background-color: #c3c3c3;
+  background: linear-gradient(to right, var(--bgcolor), var(--bgcolor)),
+    url(https://grainy-gradients.vercel.app/noise.svg);
+  filter: contrast(100%) brightness(100%);
+}

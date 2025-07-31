@@ -12,6 +12,12 @@ export namespace Components {
          */
         "apps": string;
     }
+    interface ZappV01 {
+        /**
+          * @default 'tap,zauth,tab,zout,mattermost,git,haldis,gamification,zess,events,pix,zinc'
+         */
+        "apps": string;
+    }
 }
 declare global {
     interface HTMLZappPocElement extends Components.ZappPoc, HTMLStencilElement {
@@ -20,8 +26,15 @@ declare global {
         prototype: HTMLZappPocElement;
         new (): HTMLZappPocElement;
     };
+    interface HTMLZappV01Element extends Components.ZappV01, HTMLStencilElement {
+    }
+    var HTMLZappV01Element: {
+        prototype: HTMLZappV01Element;
+        new (): HTMLZappV01Element;
+    };
     interface HTMLElementTagNameMap {
         "zapp-poc": HTMLZappPocElement;
+        "zapp-v01": HTMLZappV01Element;
     }
 }
 declare namespace LocalJSX {
@@ -31,8 +44,15 @@ declare namespace LocalJSX {
          */
         "apps"?: string;
     }
+    interface ZappV01 {
+        /**
+          * @default 'tap,zauth,tab,zout,mattermost,git,haldis,gamification,zess,events,pix,zinc'
+         */
+        "apps"?: string;
+    }
     interface IntrinsicElements {
         "zapp-poc": ZappPoc;
+        "zapp-v01": ZappV01;
     }
 }
 export { LocalJSX as JSX };
@@ -40,6 +60,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "zapp-poc": LocalJSX.ZappPoc & JSXBase.HTMLAttributes<HTMLZappPocElement>;
+            "zapp-v01": LocalJSX.ZappV01 & JSXBase.HTMLAttributes<HTMLZappV01Element>;
         }
     }
 }

@@ -91,9 +91,12 @@
     </filter>
   </svg>
 
-  <div id="concept">
+  <!-- <div id="concept">
     <img src="/zapp-concept-1.png" alt="concept" style="width: 24em;" />
-  </div>
+  </div> -->
+
+  <img style="width: 20em;"
+   src="https://d3d71ba2asa5oz.cloudfront.net/12049372/images/irc84062_1.jpg" alt="remote">
 
   <div id="dropdown">
     <div
@@ -103,8 +106,20 @@
       aria-labelledby="menu-button"
       part="dropdown"
     >
-      <div class="bborder bborder1">
-        <div class="dborder dborder1">
+      <div class="topbar" style="margin: 0;">
+        <div class="button buttona">
+          <div class="buttontop">
+            ZAPP V1
+          </div>
+          <div class="buttonbottom"></div>
+        </div>
+        <div class="button buttonb">CONFIG</div>
+        <div class="button buttonc">LOGIN</div>
+        <div class="button buttond">SOURCE</div>
+        <div class="button buttonpower">⏻</div>
+      </div>
+      <div class="bborder bborder1" style="padding: 0;">
+        <div class="dborder dborder1" style="padding: 0;">
           <div class="dborder dborder3">
             <div class="dborder dborder4">
               <div class="p-4 cborder1 container">
@@ -149,9 +164,111 @@
       </div>
     </div>
   </div>
+
+  <svg width="0" height="0" aria-hidden="true">
+    <filter id="icongrain" color-interpolation-filters="sRGB">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.913"
+        numOctaves="4"
+        seed="21"
+        result="noise2"
+      ></feTurbulence>
+
+      <feComposite
+        in="noise2"
+        in2="SourceGraphic"
+        operator="arithmetic"
+        k1="0.7"
+        k2="0"
+        k3="1.0"
+        k4="0"
+      ></feComposite>
+    </filter>
+  </svg>
+  
 </main>
 
 <style>
+
+
+  .button{
+    aspect-ratio: 2;
+    height: 1.6rem;
+    color: white;
+    font-size: 0.7em;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2.2px;
+  }
+
+  .buttontop{
+    width: 1.6rem;
+    height: 100%;
+    position: absolute;
+    aspect-ratio: 2;
+    background-color: darkred;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2.2px;
+  }
+
+  .buttonbottom{
+    width: 1.6rem;
+    aspect-ratio: 2;
+    height: 100%;
+    position: absolute;
+    background-color: darkred;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2.2px;
+  }
+
+  .buttona{
+    background-color: darkred;
+  }
+
+  .buttonb{
+    background-color: darkcyan;
+    filter: drop-shadow(0px 4px rgb(1, 105, 105)) url(#icongrain);
+  }
+
+  .buttonc{
+    background-color: rgb(147, 147, 15);
+    filter: drop-shadow(0px 4px rgb(123, 123, 62)) url(#icongrain);
+  }
+
+  .buttond{
+    background-color: rgb(3, 119, 165);
+    /* filter: drop-shadow(4px 4px rgb(0, 80, 111)) url(#icongrain); */
+    box-shadow: 0px 4px 0 0 rgb(0, 80, 111);
+  }
+
+  .buttonpower{
+    aspect-ratio: 1;
+    height: 1.9rem;
+    border-radius: 50%;
+    background-color: red;
+    font-family: 'Courier New', Courier, monospace;
+    padding-top: 1%;
+    font-size: 1.4em;
+  }
+
+  .topbar{
+    width: 100%;
+    height: 2.8em;
+    background-color: black;
+    border-radius: 6px 6px 0px 0px;
+    filter: url(#grain-flat);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
   @property --rbgcolor1 {
     syntax: "<color>";
     initial-value: rgba(0,0,0,0);
@@ -289,7 +406,7 @@
     background-color: orange;
   }
 
-  .container {
+  #old .container {
     --b: linear-gradient(90deg, hsl(90, 100%, 0%), hsl(36, 100%, 65%)),
       linear-gradient(
         141.42857142857144deg,
@@ -342,11 +459,12 @@
     display: inline-block;
     width: 100%;
     height: 100%;
-    background: var(--b);
+    background-color: #9E9E9E;
+    /* background: var(--b); */
     background-blend-mode: lighten;
     clip-path: inset(0 0 0 0);
 
-    filter: url(#grain);
+    filter: url(#grain-flat);
   }
 
   .clearhover:hover {
