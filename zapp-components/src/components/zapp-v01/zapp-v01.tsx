@@ -1,8 +1,11 @@
-import { Component, Prop, h, State } from '@stencil/core';
+import { Component, Prop, h, State, Build } from '@stencil/core';
 import { getAssetPath } from '@stencil/core';
 
 import { setAssetPath } from '@stencil/core';
-setAssetPath(`http://localhost:3000/`);
+
+if(!Build.isDev){
+  setAssetPath(`http://localhost:3000/zapp-components/`);
+}
 
 const testcookiekey = 'zapptestcookie'
 @Component({
@@ -89,7 +92,7 @@ export class ZappV01 {
               this.open = !this.open;
             }}
           >
-            <img part='zappicon' src={getAssetPath('zapp-components/assets/openbutton_beta1.svg')} />
+            <img part='zappicon' src={getAssetPath('assets/openbutton_beta1.svg')} />
           </button>
         </div>
 
@@ -142,7 +145,7 @@ export class ZappV01 {
                                   aria-label={app.img}
                                 >
                                   <img
-                                    src={getAssetPath(`zapp-components/assets/services/${app.img}`)}
+                                    src={getAssetPath(`assets/services/${app.img}`)}
                                     alt={app.img}
                                     class="w95icon"
                                   />
