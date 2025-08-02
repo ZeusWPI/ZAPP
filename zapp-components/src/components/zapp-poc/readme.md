@@ -17,6 +17,7 @@
 | Part           | Description |
 | -------------- | ----------- |
 | `"cookiesim"`  |             |
+| `"dropdown"`   |             |
 | `"openbutton"` |             |
 
 

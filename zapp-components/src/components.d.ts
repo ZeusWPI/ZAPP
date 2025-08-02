@@ -14,9 +14,9 @@ export namespace Components {
     }
     interface ZappV01 {
         /**
-          * @default [     { img: "Gitea_Logo.svg" },     { img: "haldis_black.png" },     { img: "Mattermost_icon_denim.svg" },     { img: "tap.ico" },     { img: "tab.ico" },     { img: "zess.svg" },     { img: "zeus.svg" },     { img: "Gitea_Logo.svg" },     { img: "Mattermost_icon_denim.svg" },     { img: "tap.ico" },     { img: "zess.svg" },     { img: "zeus.svg" },   ]
+          * @default [     { img: "Gitea_Logo.svg", url: "https://git.zeus.gent" },     { img: "haldis_black.png", url: "https://haldis.zeus.gent" },     { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent"},     { img: "tap.ico", url: "https://tap.zeus.gent"},     { img: "tab.ico", url: "https://tab.zeus.gent" },     { img: "zess.svg", url: "https://zess.zeus.gent" },     { img: "zeus.svg", url: "https://zeus.gent" },     { img: "Gitea_Logo.svg", url: "https://git.zeus.gent" },     { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent" },     { img: "tap.ico", url: "https://tap.zeus.gent"},     { img: "zess.svg", url: "https://zess.zeus.gent" },     { img: "zeus.svg", url: "https://zeus.gent" },   ]
          */
-        "apps": { img: string; }[];
+        "apps": { img: string; url: string; }[];
     }
 }
 declare global {
@@ -46,9 +46,9 @@ declare namespace LocalJSX {
     }
     interface ZappV01 {
         /**
-          * @default [     { img: "Gitea_Logo.svg" },     { img: "haldis_black.png" },     { img: "Mattermost_icon_denim.svg" },     { img: "tap.ico" },     { img: "tab.ico" },     { img: "zess.svg" },     { img: "zeus.svg" },     { img: "Gitea_Logo.svg" },     { img: "Mattermost_icon_denim.svg" },     { img: "tap.ico" },     { img: "zess.svg" },     { img: "zeus.svg" },   ]
+          * @default [     { img: "Gitea_Logo.svg", url: "https://git.zeus.gent" },     { img: "haldis_black.png", url: "https://haldis.zeus.gent" },     { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent"},     { img: "tap.ico", url: "https://tap.zeus.gent"},     { img: "tab.ico", url: "https://tab.zeus.gent" },     { img: "zess.svg", url: "https://zess.zeus.gent" },     { img: "zeus.svg", url: "https://zeus.gent" },     { img: "Gitea_Logo.svg", url: "https://git.zeus.gent" },     { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent" },     { img: "tap.ico", url: "https://tap.zeus.gent"},     { img: "zess.svg", url: "https://zess.zeus.gent" },     { img: "zeus.svg", url: "https://zeus.gent" },   ]
          */
-        "apps"?: { img: string; }[];
+        "apps"?: { img: string; url: string; }[];
     }
     interface IntrinsicElements {
         "zapp-poc": ZappPoc;

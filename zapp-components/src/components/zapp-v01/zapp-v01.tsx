@@ -1,26 +1,30 @@
 import { Component, Prop, h, State } from '@stencil/core';
+import { getAssetPath } from '@stencil/core';
+
+import { setAssetPath } from '@stencil/core';
+setAssetPath(`http://localhost:3000/`);
 
 const testcookiekey = 'zapptestcookie'
 @Component({
   tag: 'zapp-v01',
   styleUrl: 'zapp-v01.css',
-  assetsDirs: ['../assets'],
+  assetsDirs: ['assets'],
   shadow: true,
 })
 export class ZappV01 {
   @Prop() apps = [
-    { img: "Gitea_Logo.svg" },
-    { img: "haldis_black.png" },
-    { img: "Mattermost_icon_denim.svg" },
-    { img: "tap.ico" },
-    { img: "tab.ico" },
-    { img: "zess.svg" },
-    { img: "zeus.svg" },
-    { img: "Gitea_Logo.svg" },
-    { img: "Mattermost_icon_denim.svg" },
-    { img: "tap.ico" },
-    { img: "zess.svg" },
-    { img: "zeus.svg" },
+    { img: "Gitea_Logo.svg", url: "https://git.zeus.gent" },
+    { img: "haldis_black.png", url: "https://haldis.zeus.gent" },
+    { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent"},
+    { img: "tap.ico", url: "https://tap.zeus.gent"},
+    { img: "tab.ico", url: "https://tab.zeus.gent" },
+    { img: "zess.svg", url: "https://zess.zeus.gent" },
+    { img: "zeus.svg", url: "https://zeus.gent" },
+    { img: "Gitea_Logo.svg", url: "https://git.zeus.gent" },
+    { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent" },
+    { img: "tap.ico", url: "https://tap.zeus.gent"},
+    { img: "zess.svg", url: "https://zess.zeus.gent" },
+    { img: "zeus.svg", url: "https://zeus.gent" },
   ];
 
   private getCookie(name) {
@@ -39,39 +43,34 @@ export class ZappV01 {
   @State() checked: any = this.getCookie(testcookiekey) === 'true';
 
 
-  private getRootDomain() {
-    const hostname = window.location.hostname;
+  // private getRootDomain() {
+  //   const hostname = window.location.hostname;
 
-    // Handle localhost and IP addresses
-    if (hostname === 'localhost' || /^\d+\.\d+\.\d+\.\d+$/.test(hostname)) {
-      return hostname;
-    }
+  //   // Handle localhost and IP addresses
+  //   if (hostname === 'localhost' || /^\d+\.\d+\.\d+\.\d+$/.test(hostname)) {
+  //     return hostname;
+  //   }
 
-    // For regular domains, get the last two parts
-    const parts = hostname.split('.');
-    return parts.slice(-2).join('.');
-  }
+  //   // For regular domains, get the last two parts
+  //   const parts = hostname.split('.');
+  //   return parts.slice(-2).join('.');
+  // }
 
-  private setCookieOnRootDomain(name, value, options) {
-    const { days = 30, secure = false, sameSite = 'Lax' } = options;
+  // private setCookieOnRootDomain(name, value, options) {
+  //   const { days = 30, secure = false, sameSite = 'Lax' } = options;
 
-    const rootDomain = this.getRootDomain();
-    const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+  //   const rootDomain = this.getRootDomain();
+  //   const date = new Date();
+  //   date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
 
-    let cookieString = `${name}=${value}; expires=${date.toUTCString()}; domain=.${rootDomain}; path=/; SameSite=${sameSite}`;
+  //   let cookieString = `${name}=${value}; expires=${date.toUTCString()}; domain=.${rootDomain}; path=/; SameSite=${sameSite}`;
 
-    if (secure) {
-      cookieString += '; Secure';
-    }
+  //   if (secure) {
+  //     cookieString += '; Secure';
+  //   }
 
-    document.cookie = cookieString;
-  }
-
-  private handleCheck(e) {
-    this.checked = e.target.checked;
-    this.setCookieOnRootDomain(testcookiekey, this.checked, { days: 30, secure: false, sameSite: 'Strict' });
-  }
+  //   document.cookie = cookieString;
+  // }
 
   render() {
     // Main container for the dropdown, centered on the screen
@@ -90,6 +89,7 @@ export class ZappV01 {
               this.open = !this.open;
             }}
           >
+            <img part='zappicon' src={getAssetPath('zapp-components/assets/openbutton_beta1.svg')} />
           </button>
         </div>
 
@@ -119,9 +119,9 @@ export class ZappV01 {
                       <div class="p-4 cborder1 container">
                         <div class="noisyspectrumbg absolute inset-0 rounded-md -z-10"></div>
                         <div class="grid grid-cols-3 gap-5" role="none">
-                          {this.apps.map((app, index) => (
+                          {this.apps.map((app, _) => (
                             <div class="w-25 h-25">
-                              <button
+                              <a href={app.url} target='_blank'
                                 class="w95in1 w-25 h-25 style absolute"
                                 aria-label={app.img}
                               >
@@ -132,7 +132,7 @@ export class ZappV01 {
                                     </div>
                                   </div>
                                 </div>
-                              </button>
+                              </a>
                 
                               <div class="icontainer absolute" >
                                 <button
@@ -142,7 +142,7 @@ export class ZappV01 {
                                   aria-label={app.img}
                                 >
                                   <img
-                                    src={`assets/services/${app.img}`}
+                                    src={getAssetPath(`zapp-components/assets/services/${app.img}`)}
                                     alt={app.img}
                                     class="w95icon"
                                   />

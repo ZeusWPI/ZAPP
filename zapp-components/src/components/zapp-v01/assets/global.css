@@ -1,0 +1,11 @@
+@property --rbgcolor1 {
+  syntax: '<color>';
+  initial-value: rgba(0, 0, 0, 0);
+  inherits: false;
+}
+
+@property --rbgcolor2 {
+  syntax: '<color>';
+  initial-value: rgba(0, 0, 0, 0);
+  inherits: false;
+}
