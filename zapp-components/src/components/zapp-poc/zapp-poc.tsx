@@ -19,6 +19,7 @@ export class ZappPOC {
     }
     else{
       console.error('cookie not found')
+      return null;
     }
   }
 

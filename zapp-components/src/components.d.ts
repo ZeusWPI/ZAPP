@@ -14,9 +14,9 @@ export namespace Components {
     }
     interface ZappV01 {
         /**
-          * @default 'tap,zauth,tab,zout,mattermost,git,haldis,gamification,zess,events,pix,zinc'
+          * @default [     { img: "Gitea_Logo.svg" },     { img: "haldis_black.png" },     { img: "Mattermost_icon_denim.svg" },     { img: "tap.ico" },     { img: "tab.ico" },     { img: "zess.svg" },     { img: "zeus.svg" },     { img: "Gitea_Logo.svg" },     { img: "Mattermost_icon_denim.svg" },     { img: "tap.ico" },     { img: "zess.svg" },     { img: "zeus.svg" },   ]
          */
-        "apps": string;
+        "apps": { img: string; }[];
     }
 }
 declare global {
@@ -46,9 +46,9 @@ declare namespace LocalJSX {
     }
     interface ZappV01 {
         /**
-          * @default 'tap,zauth,tab,zout,mattermost,git,haldis,gamification,zess,events,pix,zinc'
+          * @default [     { img: "Gitea_Logo.svg" },     { img: "haldis_black.png" },     { img: "Mattermost_icon_denim.svg" },     { img: "tap.ico" },     { img: "tab.ico" },     { img: "zess.svg" },     { img: "zeus.svg" },     { img: "Gitea_Logo.svg" },     { img: "Mattermost_icon_denim.svg" },     { img: "tap.ico" },     { img: "zess.svg" },     { img: "zeus.svg" },   ]
          */
-        "apps"?: string;
+        "apps"?: { img: string; }[];
     }
     interface IntrinsicElements {
         "zapp-poc": ZappPoc;

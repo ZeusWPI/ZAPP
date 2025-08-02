@@ -8,7 +8,20 @@ const testcookiekey = 'zapptestcookie'
   shadow: true,
 })
 export class ZappV01 {
-  @Prop() apps: string = 'tap,zauth,tab,zout,mattermost,git,haldis,gamification,zess,events,pix,zinc';
+  @Prop() apps = [
+    { img: "Gitea_Logo.svg" },
+    { img: "haldis_black.png" },
+    { img: "Mattermost_icon_denim.svg" },
+    { img: "tap.ico" },
+    { img: "tab.ico" },
+    { img: "zess.svg" },
+    { img: "zeus.svg" },
+    { img: "Gitea_Logo.svg" },
+    { img: "Mattermost_icon_denim.svg" },
+    { img: "tap.ico" },
+    { img: "zess.svg" },
+    { img: "zeus.svg" },
+  ];
 
   private getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -82,38 +95,118 @@ export class ZappV01 {
 
         {/* Dropdown panel, conditionally rendered based on 'isOpen' state */}
         {this.open && (
-          <div
-            class="origin-top-right absolute mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 p-4"
-            role="menu"
-            aria-orientation="vertical"
-            aria-labelledby="menu-button"
-            part="dropdown"
-          >
-            <div class="font-semibold text-xl" part="cookiesim">
-              <input onInput={e => this.handleCheck(e)} class="m-4 w-6 h-6" type="checkbox" checked={this.checked}/>
-              cookie simulator
-            </div>
-            {/* Grid container for the 9 square buttons */}
-            <div class="grid grid-cols-3 gap-2" role="none">
-              {/* Generate 9 square buttons */}
-              {this.apps.split(',').map((app, index) => (
-                <button
-                  key={index}
-                  class="flex items-center justify-center w-16 h-16 rounded-md bg-blue-500 text-white font-semibold shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
-                  role="menuitem"
-                  // You can add an onClick handler here for each button, e.g., to perform an action or close the dropdown
-                  onClick={() => {
-                    console.log(`${app} button clicked!`);
-                    // Optionally close the dropdown after a button is clicked
-                    // setIsOpen(false);
-                  }}
-                >
-                  {app}
-                </button>
-              ))}
+          <div id="dropdown">
+            <div
+              class="dropdown origin-top-right absolute mt-2 w-95 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
+              role="menu"
+              aria-orientation="vertical"
+              aria-labelledby="menu-button"
+              part="dropdown"
+            >
+              <div class="topbar" >
+                <div class="button buttona">
+                  ZAPP V1
+                </div>
+                <div class="button buttonb">CONFIG</div>
+                <div class="button buttonc">LOGIN</div>
+                <div class="button buttond">SOURCE</div>
+                <div class="button buttonpower">⏻</div>
+              </div>
+              <div class="bborder bborder1" >
+                <div class="dborder dborder1" >
+                  <div class="dborder dborder3">
+                    <div class="dborder dborder4">
+                      <div class="p-4 cborder1 container">
+                        <div class="noisyspectrumbg absolute inset-0 rounded-md -z-10"></div>
+                        <div class="grid grid-cols-3 gap-5" role="none">
+                          {this.apps.map((app, index) => (
+                            <div class="w-25 h-25">
+                              <button
+                                class="w95in1 w-25 h-25 style absolute"
+                                aria-label={app.img}
+                              >
+                                <div class="bborder bborder1">
+                                  <div class="bborder bborder2">
+                                    <div class="bborder bborder3">
+                                      <div class="bborder bborder4"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </button>
+                
+                              <div class="icontainer absolute" >
+                                <button
+                                  class="flex items-center justify-center w-25 h-25 rounded-md text-white font-semibold shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+                                  role="menuitem"
+                                  
+                                  aria-label={app.img}
+                                >
+                                  <img
+                                    src={`assets/services/${app.img}`}
+                                    alt={app.img}
+                                    class="w95icon"
+                                  />
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
+
+
+
+
+        <svg width="0" height="0" aria-hidden="true">
+          <filter id="grain-flat" color-interpolation-filters="sRGB">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.913"
+              numOctaves="4"
+              seed="21"
+              result="noise"
+            ></feTurbulence>
+
+            <feComposite
+              in="noise"
+              in2="SourceGraphic"
+              operator="arithmetic"
+              k1="0"
+              k2="0.4"
+              k3="1.0"
+              k4="0"
+            ></feComposite>
+          </filter>
+        </svg>
+
+
+        <svg width="0" height="0" aria-hidden="true">
+          <filter id="icongrain" color-interpolation-filters="sRGB">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.913"
+              numOctaves="4"
+              seed="21"
+              result="noise2"
+            ></feTurbulence>
+
+            <feComposite
+              in="noise2"
+              in2="SourceGraphic"
+              operator="arithmetic"
+              k1="0.7"
+              k2="0"
+              k3="1.0"
+              k4="0"
+            ></feComposite>
+          </filter>
+        </svg>
       </div>
     );
   }
