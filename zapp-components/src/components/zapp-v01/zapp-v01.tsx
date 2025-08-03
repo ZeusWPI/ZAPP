@@ -16,18 +16,15 @@ const testcookiekey = 'zapptestcookie'
 })
 export class ZappV01 {
   @Prop() apps = [
-    { img: "Gitea_Logo.svg", url: "https://git.zeus.gent" },
+    { img: "git.png", url: "https://git.zeus.gent" },
+    { img: "zess.svg", url: "https://zess.zeus.gent" },
+    { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent", class: "mattermost"},
     { img: "haldis_black.png", url: "https://haldis.zeus.gent" },
-    { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent"},
     { img: "tap.ico", url: "https://tap.zeus.gent"},
     { img: "tab.ico", url: "https://tab.zeus.gent" },
-    { img: "zess.svg", url: "https://zess.zeus.gent" },
     { img: "zeus.svg", url: "https://zeus.gent" },
-    { img: "Gitea_Logo.svg", url: "https://git.zeus.gent" },
-    { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent" },
-    { img: "tap.ico", url: "https://tap.zeus.gent"},
-    { img: "zess.svg", url: "https://zess.zeus.gent" },
-    { img: "zeus.svg", url: "https://zeus.gent" },
+    { img: "profile_nobg.png", url: "https://zauth.zeus.gent", class: "profile" },
+    { img: "mail.png", url: "https://zauth.zeus.gent/mails/" },
   ];
 
   private getCookie(name) {
@@ -147,7 +144,7 @@ export class ZappV01 {
                                   <img
                                     src={getAssetPath(`assets/services/${app.img}`)}
                                     alt={app.img}
-                                    class="w95icon"
+                                    class={"w95icon " + (app.class ?? "")}
                                   />
                                 </button>
                               </div>

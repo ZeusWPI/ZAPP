@@ -131,7 +131,7 @@ main {
 
 .w95icon {
   width: 4.8em;
-  aspect-ratio: 1;
+  height: auto;
   z-index: 100;
   filter: none;
   border-radius: 3px;
@@ -179,4 +179,12 @@ svg[height='0'][aria-hidden='true'] {
   clip-path: inset(0 0 0 0);
 
   filter: url(#grain-flat);
+}
+
+.profile{
+  filter: saturate(54%) drop-shadow(4px 4px rgba(0, 0, 0, 0.329)) url(#icongrain);
+}
+
+.mattermost{
+  width: 5.5em;
 }
