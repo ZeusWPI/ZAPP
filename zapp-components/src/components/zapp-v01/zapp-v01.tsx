@@ -4,7 +4,7 @@ import { getAssetPath } from '@stencil/core';
 import { setAssetPath } from '@stencil/core';
 
 if(!Build.isDev){
-  setAssetPath(`http://localhost:3000/zapp-components/`);
+  setAssetPath(`http://localhost:3001/zapp-components/`);
 }
 
 const testcookiekey = 'zapptestcookie'
@@ -75,13 +75,14 @@ export class ZappV01 {
   render() {
     // Main container for the dropdown, centered on the screen
     return (
-      <div class="relative inline-block text-left">
+      <div class="relative inline-block text-left" style={{ width: '100%', aspectRatio: '1 / 1' }}>
         {/* Main dropdown button (the orange square) */}
-        <div>
+        <div style={{ width: '100%', height: '100%' }}>
           <button
             type="button"
-            class="inline-flex justify-center items-center w-20 h-20 rounded-lg text-white font-bold text-xl shadow-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200"
+            class="inline-flex justify-center items-center rounded-lg text-white font-bold text-xl shadow-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200"
             id="menu-button"
+            style={{ width: '100%', height: '100%' }}
             part='openbutton'
             aria-expanded={open}
             aria-haspopup="true"
