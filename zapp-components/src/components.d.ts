@@ -14,7 +14,7 @@ export namespace Components {
     }
     interface ZappV01 {
         /**
-          * @default [     { img: "git.png", url: "https://git.zeus.gent" },     { img: "zess.svg", url: "https://zess.zeus.gent" },     { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent", class: "mattermost"},     { img: "haldis_black.png", url: "https://haldis.zeus.gent" },     { img: "tap.ico", url: "https://tap.zeus.gent"},     { img: "tab.ico", url: "https://tab.zeus.gent" },     { img: "zeus.svg", url: "https://zeus.gent" },     { img: "profile_nobg.png", url: "https://zauth.zeus.gent", class: "profile" },     { img: "mail.png", url: "https://zauth.zeus.gent/mails/" },   ]
+          * @default [     { img: "git.png", url: "https://git.zeus.gent" },     { img: "zess.svg", url: "https://zess.zeus.gent" },     { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent", class: "mattermost"},     { img: "haldis_black.png", url: "https://haldis.zeus.gent" },     { img: "tap.ico", url: "https://tap.zeus.gent"},     { img: "tab.ico", url: "https://tab.zeus.gent" },     { img: "zeus.svg", url: "https://zeus.gent" },     { img: "codimd.png", url: "https://codimd.zeus.gent" },     { img: "profile_nobg.png", url: "https://zauth.zeus.gent", class: "profile" },   ]
          */
         "apps": ({ img: string; url: string; class?: undefined; } | { img: string; url: string; class: string; })[];
     }
@@ -46,7 +46,7 @@ declare namespace LocalJSX {
     }
     interface ZappV01 {
         /**
-          * @default [     { img: "git.png", url: "https://git.zeus.gent" },     { img: "zess.svg", url: "https://zess.zeus.gent" },     { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent", class: "mattermost"},     { img: "haldis_black.png", url: "https://haldis.zeus.gent" },     { img: "tap.ico", url: "https://tap.zeus.gent"},     { img: "tab.ico", url: "https://tab.zeus.gent" },     { img: "zeus.svg", url: "https://zeus.gent" },     { img: "profile_nobg.png", url: "https://zauth.zeus.gent", class: "profile" },     { img: "mail.png", url: "https://zauth.zeus.gent/mails/" },   ]
+          * @default [     { img: "git.png", url: "https://git.zeus.gent" },     { img: "zess.svg", url: "https://zess.zeus.gent" },     { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent", class: "mattermost"},     { img: "haldis_black.png", url: "https://haldis.zeus.gent" },     { img: "tap.ico", url: "https://tap.zeus.gent"},     { img: "tab.ico", url: "https://tab.zeus.gent" },     { img: "zeus.svg", url: "https://zeus.gent" },     { img: "codimd.png", url: "https://codimd.zeus.gent" },     { img: "profile_nobg.png", url: "https://zauth.zeus.gent", class: "profile" },   ]
          */
         "apps"?: ({ img: string; url: string; class?: undefined; } | { img: string; url: string; class: string; })[];
     }

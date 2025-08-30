@@ -23,8 +23,8 @@ export class ZappV01 {
     { img: "tap.ico", url: "https://tap.zeus.gent"},
     { img: "tab.ico", url: "https://tab.zeus.gent" },
     { img: "zeus.svg", url: "https://zeus.gent" },
+    { img: "codimd.png", url: "https://codimd.zeus.gent" },
     { img: "profile_nobg.png", url: "https://zauth.zeus.gent", class: "profile" },
-    { img: "mail.png", url: "https://zauth.zeus.gent/mails/" },
   ];
 
   private getCookie(name) {
@@ -95,69 +95,106 @@ export class ZappV01 {
 
         {/* Dropdown panel, conditionally rendered based on 'isOpen' state */}
         {this.open && (
-          <div id="dropdown">
+            <div id="dropdown">
             <div
-              class="dropdown origin-top-right absolute mt-2 w-95 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
+              class="dropdown origin-top-left absolute mt-2 w-95 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
               role="menu"
               aria-orientation="vertical"
               aria-labelledby="menu-button"
               part="dropdown"
+              ref={(el: HTMLDivElement) => {
+              if (!el) return;
+              requestAnimationFrame(() => {
+                const pad = 8;
+                el.style.left = '0px';
+                el.style.right = 'auto';
+                el.style.transform = '';
+                const rect = el.getBoundingClientRect();
+                const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+                const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+                const maxLeft = vw - pad - rect.width;
+                const maxTop = vh - pad - rect.height;
+
+                const targetLeft = Math.min(Math.max(rect.left, pad), maxLeft);
+                const targetTop = Math.min(Math.max(rect.top, pad), maxTop);
+
+                const dx = targetLeft - rect.left;
+                const dy = targetTop - rect.top;
+
+                if (dx !== 0 || dy !== 0) {
+                el.style.transform = `translate(${dx}px, ${dy}px)`;
+                el.style.transformOrigin = dx < 0 ? 'top right' : 'top left';
+                } else {
+                el.style.transformOrigin = 'top left';
+                }
+              });
+              }}
             >
               <div class="topbar" >
-                <div class="button buttona">
-                  ZAPP V1
-                </div>
-                <div class="button buttonb">CONFIG</div>
-                <div class="button buttonc">LOGIN</div>
+              <div class="button buttona">
+                ZAPP V1
+              </div>
+              <div class="button buttonb" title="coming soon™">CONFIG</div>
+              <div class="button buttonc" title="coming soon™">LOGIN</div>
+              <a href='https://git.zeus.gent/roparet/zapp' target='_blank'>
                 <div class="button buttond">SOURCE</div>
-                <div class="button buttonpower">⏻</div>
+              </a>
+              <button
+                class="button buttonpower"
+                type="button"
+                aria-label="Close"
+                onClick={() => { this.open = false; }}
+              >
+                ⏻
+              </button>
               </div>
               <div class="bborder bborder1" >
-                <div class="dborder dborder1" >
-                  <div class="dborder dborder3">
-                    <div class="dborder dborder4">
-                      <div class="p-4 cborder1 container">
-                        <div class="noisyspectrumbg absolute inset-0 rounded-md -z-10"></div>
-                        <div class="grid grid-cols-3 gap-5" role="none">
-                          {this.apps.map((app, _) => (
-                            <div class="w-25 h-25">
-                              <a href={app.url} target='_blank'
-                                class="w95in1 w-25 h-25 style absolute"
-                                aria-label={app.img}
-                              >
-                                <div class="bborder bborder1">
-                                  <div class="bborder bborder2">
-                                    <div class="bborder bborder3">
-                                      <div class="bborder bborder4"></div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </a>
-                
-                              <div class="icontainer absolute" >
-                                <button
-                                  class="flex items-center justify-center w-25 h-25 rounded-md text-white font-semibold shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
-                                  role="menuitem"
-                                  
-                                  aria-label={app.img}
-                                >
-                                  <img
-                                    src={getAssetPath(`assets/services/${app.img}`)}
-                                    alt={app.img}
-                                    class={"w95icon " + (app.class ?? "")}
-                                  />
-                                </button>
-                              </div>
-                            </div>
-                          ))}
+              <div class="dborder dborder1" >
+                <div class="dborder dborder3">
+                <div class="dborder dborder4">
+                  <div class="p-4 cborder1 container">
+                  <div class="noisyspectrumbg absolute inset-0 rounded-md -z-10"></div>
+                  <div class="grid grid-cols-3 gap-5" role="none">
+                    {this.apps.map((app, _) => (
+                    <div class="w-25 h-25">
+                      <a href={app.url} target='_blank'
+                      class="w95in1 w-25 h-25 style absolute"
+                      aria-label={app.img}
+                      >
+                      <div class="bborder bborder1">
+                        <div class="bborder bborder2">
+                        <div class="bborder bborder3">
+                          <div class="bborder bborder4"></div>
+                        </div>
                         </div>
                       </div>
+                      </a>
+              
+                      <div class="icontainer absolute" >
+                      <button
+                        class="flex items-center justify-center w-25 h-25 rounded-md text-white font-semibold shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+                        role="menuitem"
+                        
+                        aria-label={app.img}
+                      >
+                        <img
+                        src={getAssetPath(`assets/services/${app.img}`)}
+                        alt={app.img}
+                        class={"w95icon " + (app.class ?? "")}
+                        />
+                      </button>
+                      </div>
                     </div>
+                    ))}
+                  </div>
                   </div>
                 </div>
+                </div>
+              </div>
               </div>
             </div>
-          </div>
+            </div>
         )}
 
 
