@@ -4,10 +4,10 @@ import { getAssetPath } from '@stencil/core';
 import { setAssetPath } from '@stencil/core';
 
 if(!Build.isDev){
-  setAssetPath(`http://localhost:3001/zapp-components/`);
+  setAssetPath(`https://zapp.zeus.gent/zapp-components/`);
 }
 
-const testcookiekey = 'zapptestcookie'
+// const testcookiekey = 'zapptestcookie'
 @Component({
   tag: 'zapp-v01',
   styleUrl: 'zapp-v01.css',
@@ -27,21 +27,19 @@ export class ZappV01 {
     { img: "profile_nobg.png", url: "https://zauth.zeus.gent", class: "profile" },
   ];
 
-  private getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2){
-      const value = parts.pop().split(';').shift();
-      return value;
-    }
-    else{
-      console.error('cookie not found')
-    }
-  }
+  // private getCookie(name) {
+  //   const value = `; ${document.cookie}`;
+  //   const parts = value.split(`; ${name}=`);
+  //   if (parts.length === 2){
+  //     const value = parts.pop().split(';').shift();
+  //     return value;
+  //   }
+  //   else{
+  //     console.error('cookie not found')
+  //   }
+  // }
 
   @State() open: boolean = false;
-  @State() checked: any = this.getCookie(testcookiekey) === 'true';
-
 
   // private getRootDomain() {
   //   const hostname = window.location.hostname;
@@ -205,7 +203,7 @@ export class ZappV01 {
           <filter id="grain-flat" color-interpolation-filters="sRGB">
             <feTurbulence
               type="fractalNoise"
-              baseFrequency="0.913"
+              baseFrequency="0.514"
               numOctaves="4"
               seed="21"
               result="noise"
@@ -228,7 +226,7 @@ export class ZappV01 {
           <filter id="icongrain" color-interpolation-filters="sRGB">
             <feTurbulence
               type="fractalNoise"
-              baseFrequency="0.913"
+              baseFrequency="0.514"
               numOctaves="4"
               seed="21"
               result="noise2"
