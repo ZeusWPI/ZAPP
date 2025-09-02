@@ -14,9 +14,9 @@ export namespace Components {
     }
     interface ZappV01 {
         /**
-          * @default [     { img: "git.png", url: "https://git.zeus.gent" },     { img: "zess.svg", url: "https://zess.zeus.gent" },     { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent", class: "mattermost"},     { img: "haldis_black.png", url: "https://haldis.zeus.gent" },     { img: "tap.ico", url: "https://tap.zeus.gent"},     { img: "tab.ico", url: "https://tab.zeus.gent" },     { img: "zeus.svg", url: "https://zeus.gent" },     { img: "codimd.png", url: "https://codimd.zeus.gent" },     { img: "profile_nobg.png", url: "https://zauth.zeus.gent", class: "profile" },   ]
+          * @default [     { img: "git.png", url: "https://git.zeus.gent", tooltip: "Git" },     { img: "zess.svg", url: "https://zess.zeus.gent", tooltip: "ZESS: Kelder logs" },     { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent", class: "mattermost", tooltip: "Chat" },     { img: "haldis_black.png", url: "https://haldis.zeus.gent", tooltip: "Haldis: Eten bestellen" },     { img: "tap.ico", url: "https://tap.zeus.gent", tooltip: "TAP: Drank kopen" },     { img: "tab.ico", url: "https://tab.zeus.gent", tooltip: "TAB: Geld beheren" },     { img: "zeus.svg", url: "https://zeus.gent", tooltip: "Zeus site" },     { img: "codimd.png", url: "https://codimd.zeus.gent", tooltip: "CodiMD: Notities" },     { img: "profile_nobg.png", url: "https://zauth.zeus.gent", class: "profile", tooltip: "Zauth profiel" },   ]
          */
-        "apps": ({ img: string; url: string; class?: undefined; } | { img: string; url: string; class: string; })[];
+        "apps": ({ img: string; url: string; tooltip: string; class?: undefined; } | { img: string; url: string; class: string; tooltip: string; })[];
     }
 }
 declare global {
@@ -46,9 +46,9 @@ declare namespace LocalJSX {
     }
     interface ZappV01 {
         /**
-          * @default [     { img: "git.png", url: "https://git.zeus.gent" },     { img: "zess.svg", url: "https://zess.zeus.gent" },     { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent", class: "mattermost"},     { img: "haldis_black.png", url: "https://haldis.zeus.gent" },     { img: "tap.ico", url: "https://tap.zeus.gent"},     { img: "tab.ico", url: "https://tab.zeus.gent" },     { img: "zeus.svg", url: "https://zeus.gent" },     { img: "codimd.png", url: "https://codimd.zeus.gent" },     { img: "profile_nobg.png", url: "https://zauth.zeus.gent", class: "profile" },   ]
+          * @default [     { img: "git.png", url: "https://git.zeus.gent", tooltip: "Git" },     { img: "zess.svg", url: "https://zess.zeus.gent", tooltip: "ZESS: Kelder logs" },     { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent", class: "mattermost", tooltip: "Chat" },     { img: "haldis_black.png", url: "https://haldis.zeus.gent", tooltip: "Haldis: Eten bestellen" },     { img: "tap.ico", url: "https://tap.zeus.gent", tooltip: "TAP: Drank kopen" },     { img: "tab.ico", url: "https://tab.zeus.gent", tooltip: "TAB: Geld beheren" },     { img: "zeus.svg", url: "https://zeus.gent", tooltip: "Zeus site" },     { img: "codimd.png", url: "https://codimd.zeus.gent", tooltip: "CodiMD: Notities" },     { img: "profile_nobg.png", url: "https://zauth.zeus.gent", class: "profile", tooltip: "Zauth profiel" },   ]
          */
-        "apps"?: ({ img: string; url: string; class?: undefined; } | { img: string; url: string; class: string; })[];
+        "apps"?: ({ img: string; url: string; tooltip: string; class?: undefined; } | { img: string; url: string; class: string; tooltip: string; })[];
     }
     interface IntrinsicElements {
         "zapp-poc": ZappPoc;

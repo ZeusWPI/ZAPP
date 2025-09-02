@@ -3,7 +3,7 @@ import { getAssetPath } from '@stencil/core';
 
 import { setAssetPath } from '@stencil/core';
 
-if(!Build.isDev){
+if (!Build.isDev) {
   setAssetPath(`https://zapp.zeus.gent/zapp-components/`);
 }
 
@@ -16,15 +16,15 @@ if(!Build.isDev){
 })
 export class ZappV01 {
   @Prop() apps = [
-    { img: "git.png", url: "https://git.zeus.gent" },
-    { img: "zess.svg", url: "https://zess.zeus.gent" },
-    { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent", class: "mattermost"},
-    { img: "haldis_black.png", url: "https://haldis.zeus.gent" },
-    { img: "tap.ico", url: "https://tap.zeus.gent"},
-    { img: "tab.ico", url: "https://tab.zeus.gent" },
-    { img: "zeus.svg", url: "https://zeus.gent" },
-    { img: "codimd.png", url: "https://codimd.zeus.gent" },
-    { img: "profile_nobg.png", url: "https://zauth.zeus.gent", class: "profile" },
+    { img: "git.png", url: "https://git.zeus.gent", tooltip: "Git" },
+    { img: "zess.svg", url: "https://zess.zeus.gent", tooltip: "ZESS: Kelder logs" },
+    { img: "Mattermost_icon_denim.svg", url: "https://mattermost.zeus.gent", class: "mattermost", tooltip: "Chat" },
+    { img: "haldis_black.png", url: "https://haldis.zeus.gent", tooltip: "Haldis: Eten bestellen" },
+    { img: "tap.ico", url: "https://tap.zeus.gent", tooltip: "TAP: Drank kopen" },
+    { img: "tab.ico", url: "https://tab.zeus.gent", tooltip: "TAB: Geld beheren" },
+    { img: "zeus.svg", url: "https://zeus.gent", tooltip: "Zeus site" },
+    { img: "codimd.png", url: "https://codimd.zeus.gent", tooltip: "CodiMD: Notities" },
+    { img: "profile_nobg.png", url: "https://zauth.zeus.gent", class: "profile", tooltip: "Zauth profiel" },
   ];
 
   // private getCookie(name) {
@@ -75,7 +75,7 @@ export class ZappV01 {
     return (
       <div class="relative inline-block text-left" style={{ width: '100%', aspectRatio: '1 / 1' }}>
         {/* Main dropdown button (the orange square) */}
-        <div style={{ width: '100%', height: '100%' }}>
+        <div class={"zappbutton " + (this.open ? 'rotated' : '')} style={{ width: '100%', height: '100%' }}>
           <button
             type="button"
             class="inline-flex justify-center items-center rounded-lg text-white font-bold text-xl shadow-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200"
@@ -101,8 +101,19 @@ export class ZappV01 {
               aria-orientation="vertical"
               aria-labelledby="menu-button"
               part="dropdown"
-              ref={(el: HTMLDivElement) => {
-              if (!el) return;
+              ref={(el: HTMLDivElement | null) => {
+              const self = this as any;
+
+              // Cleanup when unmounting
+              if (!el) {
+                if (self.__zappOutsideHandler) {
+                document.removeEventListener('click', self.__zappOutsideHandler);
+                self.__zappOutsideHandler = undefined;
+                }
+                return;
+              }
+
+              // Positioning logic
               requestAnimationFrame(() => {
                 const pad = 8;
                 el.style.left = '0px';
@@ -128,6 +139,20 @@ export class ZappV01 {
                 el.style.transformOrigin = 'top left';
                 }
               });
+
+              // Outside click handler
+              if (!self.__zappOutsideHandler) {
+                self.__zappOutsideHandler = (ev: MouseEvent) => {
+                const path = ev.composedPath();
+                const clickedInside =
+                  path.includes(el) ||
+                  path.some((n: any) => n && n.id === 'menu-button');
+                if (!clickedInside) {
+                  this.open = false;
+                }
+                };
+                document.addEventListener('click', self.__zappOutsideHandler);
+              }
               }}
             >
               <div class="topbar" >
@@ -160,6 +185,7 @@ export class ZappV01 {
                       <a href={app.url} target='_blank'
                       class="w95in1 w-25 h-25 style absolute"
                       aria-label={app.img}
+                      title={app.tooltip}
                       >
                       <div class="bborder bborder1">
                         <div class="bborder bborder2">
@@ -169,12 +195,12 @@ export class ZappV01 {
                         </div>
                       </div>
                       </a>
-              
+
                       <div class="icontainer absolute" >
                       <button
                         class="flex items-center justify-center w-25 h-25 rounded-md text-white font-semibold shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
                         role="menuitem"
-                        
+
                         aria-label={app.img}
                       >
                         <img
