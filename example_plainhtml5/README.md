@@ -1,6 +1,5 @@
 # Gebruik van Zapp component in plain HTML en JS
 
 ## setup
-- host de folder ```zapp-components/dist``` op localhost poort 3001
-    - met [serve](https://www.npmjs.com/package/serve) is dit ```serve zapp-components/dist -p 3001```
-- host deze map op een andere localhost poort
+- host deze map met je favoriete http server, ik gebruik persoonlijk serve (npm i -g server en dan serve .)
+- Dat is het! Zapp wordt extern gehost, dus wanneer er een update is moet je niks doen.

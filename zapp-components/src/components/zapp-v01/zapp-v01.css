@@ -15,10 +15,10 @@ zapp-v01::part(zappicon) {
 }
 
 .button {
-  aspect-ratio: 2;
+  aspect-ratio: 2.2;
   height: 1.6rem;
   color: white;
-  font-size: 0.7em;
+  font-size: 0.7rem;
   font-weight: bold;
   display: flex;
   justify-content: center;
