@@ -6,8 +6,6 @@ import { setAssetPath } from '@stencil/core';
 if (!Build.isDev) {
   setAssetPath(`https://zapp.zeus.gent/zapp-components/`);
 }
-
-// const testcookiekey = 'zapptestcookie'
 @Component({
   tag: 'zapp-v01',
   styleUrl: 'zapp-v01.css',
@@ -27,48 +25,12 @@ export class ZappV01 {
     { img: "profile_nobg.png", url: "https://zauth.zeus.gent", class: "profile", tooltip: "Zauth profiel" },
   ];
 
-  // private getCookie(name) {
-  //   const value = `; ${document.cookie}`;
-  //   const parts = value.split(`; ${name}=`);
-  //   if (parts.length === 2){
-  //     const value = parts.pop().split(';').shift();
-  //     return value;
-  //   }
-  //   else{
-  //     console.error('cookie not found')
-  //   }
-  // }
-
   @State() open: boolean = false;
+  @State() imgrefs: {[key: string]: HTMLImageElement} = {}
 
-  // private getRootDomain() {
-  //   const hostname = window.location.hostname;
-
-  //   // Handle localhost and IP addresses
-  //   if (hostname === 'localhost' || /^\d+\.\d+\.\d+\.\d+$/.test(hostname)) {
-  //     return hostname;
-  //   }
-
-  //   // For regular domains, get the last two parts
-  //   const parts = hostname.split('.');
-  //   return parts.slice(-2).join('.');
-  // }
-
-  // private setCookieOnRootDomain(name, value, options) {
-  //   const { days = 30, secure = false, sameSite = 'Lax' } = options;
-
-  //   const rootDomain = this.getRootDomain();
-  //   const date = new Date();
-  //   date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-
-  //   let cookieString = `${name}=${value}; expires=${date.toUTCString()}; domain=.${rootDomain}; path=/; SameSite=${sameSite}`;
-
-  //   if (secure) {
-  //     cookieString += '; Secure';
-  //   }
-
-  //   document.cookie = cookieString;
-  // }
+  private imgLoad(url: string){
+    this.imgrefs[url].style.opacity = '100%';
+  }
 
   render() {
     // Main container for the dropdown, centered on the screen
@@ -156,7 +118,7 @@ export class ZappV01 {
               }}
             >
               <div class="topbar" >
-                <div class="button buttona">
+                <div class="button buttona" title="Zeus App Picker Portal">
                   ZAPP V1
                 </div>
                 <div class="button buttonb" title="coming soon™">CONFIG</div>
@@ -204,9 +166,11 @@ export class ZappV01 {
                                   aria-label={app.img}
                                 >
                                   <img
+                                    ref={el => this.imgrefs[app.url] = el}
                                     src={getAssetPath(`assets/services/${app.img}`)}
                                     alt={app.img}
-                                    class={"w95icon " + (app.class ?? "")}
+                                    onLoad={(_)=>this.imgLoad(app.url)}
+                                    class={"w95icon easeload " + (app.class ?? "")}
                                   />
                                 </button>
                               </div>

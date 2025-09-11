@@ -28,23 +28,22 @@ zapp-v01::part(zappicon) {
 
 .buttona {
   background-color: darkred;
-  filter: drop-shadow(0px 4px rgb(88, 0, 0)) url(#icongrain);
+  filter: drop-shadow(0px 5px rgb(88, 0, 0)) url(#icongrain);
 }
 
 .buttonb {
   background-color: darkcyan;
-  filter: drop-shadow(0px 4px rgb(1, 105, 105)) url(#icongrain);
+  filter: drop-shadow(0px 5px rgb(1, 105, 105)) url(#icongrain);
 }
 
 .buttonc {
   background-color: rgb(147, 147, 15);
-  filter: drop-shadow(0px 4px rgb(123, 123, 62)) url(#icongrain);
+  filter: drop-shadow(0px 5px rgb(123, 123, 62)) url(#icongrain);
 }
 
 .buttond {
   background-color: rgb(3, 119, 165);
-  /* filter: drop-shadow(4px 4px rgb(0, 80, 111)) url(#icongrain); */
-  box-shadow: 0px 4px 0 0 rgb(0, 80, 111);
+  filter: drop-shadow(0px 5px rgb(0, 80, 111)) url(#icongrain);
 }
 
 .buttonpower {
@@ -198,4 +197,17 @@ svg[height='0'][aria-hidden='true'] {
 .zappbutton:hover, .rotated {
   /* smoothly rotate 180 degrees */
   transform: rotate(180deg);
+}
+
+.easeload{
+    opacity: 0;
+    transition: all 0.4s ease;
+    -webkit-transition: all 0.4s ease; 
+    -moz-transition: all 0.4s ease; 
+    -ms-transition: all 0.4s ease; 
+    -o-transition: all 0.4s ease; 
+}
+
+.img-loaded{
+  opacity: 100%;
 }
