@@ -1,33 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML 5 Boilerplate</title>
+    <link rel="stylesheet" href="style.css" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>HTML 5 Boilerplate</title>
-  <link rel="stylesheet" href="style.css" />
+    <script
+      type="module"
+      src="https://zapp.zeus.gent/zapp-components/zapp-components.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://zapp.zeus.gent/zapp-components/zapp-components.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://zapp.zeus.gent/zapp-components/assets/global.css"
+    />
 
+    <script>
+      window.onmessage = function(e){
 
-  <script type="module" src="https://zapp.zeus.gent/zapp-components/zapp-components.esm.js"></script>
-  <script nomodule src="https://zapp.zeus.gent/zapp-components/zapp-components.js"></script>
-  <link rel="stylesheet" href="https://zapp.zeus.gent/zapp-components/assets/global.css">
-</head>
+        window.document.addEventListener('myCustomEvent', handleEvent, false)
+        function handleEvent(e) {
+          console.log(e.detail) // outputs: {foo: 'bar'}
+        }
 
-<body>
-  <div class="topnav">
-    <a class="active" href="#home">Home</a>
-    <a href="#news">News</a>
-    <a href="#contact">Contact</a>
-    <a href="#about">About</a>
+        try{
+          let msg = JSON.parse(e.data);
+          if(msg.type === "buttonclick"){
+            const box = document.getElementById("zappbutton").getBoundingClientRect();
+            document.getElementById("zappdropdown").style.left = `${box.x}px`;
+            document.getElementById("zappdropdown").style.top = `calc(${box.y + box.height}px + 0.2rem)`;
+            document.getElementById("zappdropdown").style.display = msg.state ? "block" : "none";
+            document.getElementById("zappdropdown").contentWindow.postMessage({rect: box}, "http://localhost:5173")
+          }else if(msg.type === "dropdown-box"){
+            document.getElementById("zappdropdown").style.width = `${msg.box.width}px`;
+            document.getElementById("zappdropdown").style.height = `${msg.box.height}px`;
+            console.log("set dropdown iframe size")
+          }
+          else{
+            alert("no supported msg type: " + msg.type)
+          }
+        }catch(err){
+          console.error(err);
+          alert("error");
+        }
+      }
+    </script>
+  </head>
 
-    <div style="height: 2.8em; aspect-ratio: 1 / 1;">
-      <zapp-v01 />
+  <body>
+    <div class="topnav">
+      <a class="active" href="#home">Home</a>
+      <a href="#news">News</a>
+      <a href="#contact">Contact</a>
+      <a href="#about">About</a>
+
+      <div style="height: 2.8em; aspect-ratio: 1 / 1">
+        <zapp-v01 />
+      </div>
+
+      <iframe
+        id="zappbutton"
+        src="http://localhost:5173/button"
+        style="height: 2.8em; aspect-ratio: 1 / 1; border: none"
+      >
+      </iframe>
     </div>
 
-    <iframe src="http://localhost:5173/button" style="height: 2.8em; aspect-ratio: 1 / 1; border: none;">
-      
-    </iframe>
-</body>
-
+    <iframe
+      id="zappdropdown"
+      src="http://localhost:5173/dropdown"
+      style="border-style: none; position: absolute; left: 0; top: 0; height: 100vh; width: 100vw; overflow: hidden; display: none;"
+    />
+  </body>
 </html>
