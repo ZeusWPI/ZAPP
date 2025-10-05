@@ -23,22 +23,40 @@
     <script>
       window.onmessage = function(e){
 
+        const outsideclickhandler = (ev) => {
+          const path = ev.composedPath();
+          console.log("click")
+          const clickedInside =
+            path.some((n) => n && n.id === 'zappbutton') ||
+            path.some((n) => n && n.id === 'zappdropdown');
+          if (!clickedInside) {
+            console.log("outside")
+            document.getElementById("zappdropdown").contentWindow.postMessage({type: "outsideclick"}, "http://localhost:5173")
+          }
+        };
+        window.addEventListener("click", outsideclickhandler)
+
         window.document.addEventListener('myCustomEvent', handleEvent, false)
         function handleEvent(e) {
           console.log(e.detail) // outputs: {foo: 'bar'}
         }
 
+        let setsize = false;
+        let opened = false;
+
         try{
           let msg = JSON.parse(e.data);
           if(msg.type === "buttonclick"){
+            opened = !opened;
             const box = document.getElementById("zappbutton").getBoundingClientRect();
             document.getElementById("zappdropdown").style.left = `${box.x}px`;
             document.getElementById("zappdropdown").style.top = `calc(${box.y + box.height}px + 0.2rem)`;
-            document.getElementById("zappdropdown").style.display = msg.state ? "block" : "none";
-            document.getElementById("zappdropdown").contentWindow.postMessage({rect: box}, "http://localhost:5173")
-          }else if(msg.type === "dropdown-box"){
+            document.getElementById("zappdropdown").style.display = opened ? "block" : "none";
+            document.getElementById("zappdropdown").contentWindow.postMessage({type: 'rect', rect: box}, "http://localhost:5173")
+          }else if(msg.type === "dropdown-box" && !setsize){
+            setsize = true;
             document.getElementById("zappdropdown").style.width = `${msg.box.width}px`;
-            document.getElementById("zappdropdown").style.height = `${msg.box.height}px`;
+            document.getElementById("zappdropdown").style.height = `${msg.box.height + 7}px`;
             console.log("set dropdown iframe size")
           }
           else{

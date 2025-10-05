@@ -44,10 +44,14 @@
     let root: HTMLElement;
 
 	onMount(() => {
-		window.parent.postMessage(
-			JSON.stringify({ type: 'dropdown-box', box: root.getBoundingClientRect() }),
-			'http://localhost:3000'
-		);
+		console.log("mounted dropdown")
+		console.log(root.getBoundingClientRect())
+		if(root.getBoundingClientRect().height != 0){
+			window.parent.postMessage(
+				JSON.stringify({ type: 'dropdown-box', box: root.getBoundingClientRect() }),
+				'http://localhost:3000'
+			);
+		}
 	});
 </script>
 
@@ -58,6 +62,13 @@
 	aria-labelledby="menu-button"
 	part="dropdown"
     bind:this={root}
+	onload={()=> {
+		console.log("sending rect")
+		window.parent.postMessage(
+			JSON.stringify({ type: 'dropdown-box', box: root.getBoundingClientRect() }),
+			'http://localhost:3000'
+		);
+	}}
 >
 	<div class="topbar">
 		<div class="button buttona" title="Zeus App Picker Portal">ZAPP V1</div>
