@@ -22,31 +22,30 @@
 
     <script>
 
-      let box = {x: 0, y: 0, height: 0, width: 0};
       let setsize = false;
-      let w = 0;
-      let h = 0;
+      let dropwidth = 0;
+      let dropheight = 0;
+      let opened = false;
 
       const outsideclickhandler = (ev) => {
         const path = ev.composedPath();
-        console.log("click")
         const clickedInside =
           path.some((n) => n && n.id === 'zappbutton') ||
           path.some((n) => n && n.id === 'zappdropdown');
         if (!clickedInside) {
-          console.log("outside")
+          opened = false;
           document.getElementById("zappdropdown").contentWindow.postMessage({type: "outsideclick"}, "*")
           document.getElementById("zappbutton").contentWindow.postMessage({type: "outsideclick"}, "*")
+          document.getElementById("zappdropdown").style.visibility = opened ? "visible" : "hidden";
         }
       };
       window.addEventListener("click", outsideclickhandler);
-      let opened = false;
       const GAP = 4;
 
       function position(){
         var vroot = document.getElementById("zappdropdown")
         const vrect = document.getElementById("zappbutton").getBoundingClientRect();
-        console.log({w, h})
+        console.log({dropwidth, dropheight})
 
         const vw = window.innerWidth;
         const vh = window.innerHeight;
@@ -56,17 +55,17 @@
         let top = topBelow;
 
         // Horizontal clamp
-        if(left + w > vw - GAP) left = Math.max(GAP, vw - w - GAP);
+        if(left + dropwidth > vw - GAP) left = Math.max(GAP, vw - dropwidth - GAP);
         if(left < GAP) left = GAP;
 
         // Prefer below, fallback above if overflow
-        if(top + h > vh - GAP){
-          const topAbove = vrect.y - h - GAP;
+        if(top + dropheight > vh - GAP){
+          const topAbove = vrect.y - dropheight - GAP;
           if(topAbove >= GAP){
             top = topAbove;
           }else{
             // Clamp inside viewport
-            top = Math.max(GAP, Math.min(top, vh - h - GAP));
+            top = Math.max(GAP, Math.min(top, vh - dropheight - GAP));
           }
         }
 
@@ -75,11 +74,7 @@
       }
 
       function openAnimation(){
-        console.log("open animation")
-        const root = document.getElementById("zappdropdown");
-        const rect = document.getElementById("zappbutton").getBoundingClientRect();
-        console.log({rect: root.getBoundingClientRect(), buttonbox: box})
-        
+        const root = document.getElementById("zappdropdown")
         // Avoid duplicating listeners
         if(!root._repositionBound){
           const handler = () => position();
@@ -87,47 +82,33 @@
           window.addEventListener("scroll", handler, true);
           root._repositionBound = true;
         }
-
-        position(rect);
+        position();
       }
 
       window.onmessage = function(e){
-
-        // box could have changed size
-        box = document.getElementById("zappbutton").getBoundingClientRect();
-
-
         try{
           let msg = JSON.parse(e.data);
           if(msg.type === "buttonclick"){
             opened = !opened;
-            console.log({opened})
-            box = document.getElementById("zappbutton").getBoundingClientRect();
-            // document.getElementById("zappdropdown").style.left = `${box.x}px`;
-            // document.getElementById("zappdropdown").style.top = `calc(${box.y + box.height}px + 0.2rem)`;
-            document.getElementById("zappdropdown").contentWindow.postMessage({type: 'rect', rect: box}, "*")
-
             document.getElementById("zappdropdown").style.visibility = opened ? "visible" : "hidden";
             if(opened) openAnimation();
-
           }else if(msg.type === "dropdown-box" && !setsize){
             setsize = true;
-            w = msg.box.width;
-            h = msg.box.height;
-            document.getElementById("zappdropdown").style.width = `${msg.box.width}px`;
-            document.getElementById("zappdropdown").style.height = `${msg.box.height + 7}px`;
+            dropwidth = msg.box.width;
+            dropheight = msg.box.height;
+            document.getElementById("zappdropdown").style.width = `${dropwidth}px`;
+            document.getElementById("zappdropdown").style.height = `${dropheight + 7}px`;
             console.log("set dropdown iframe size");
           }else if(msg.type === "state"){
             opened = msg.state;
-            document.getElementById("zappdropdown").style.display = opened ? "block" : "none";
+            document.getElementById("zappdropdown").style.visibility = opened ? "visible" : "hidden";
             document.getElementById("zappbutton").contentWindow.postMessage(msg, "*")
           }
           else{
-            alert("no supported msg type: " + msg.type)
+            console.error("no supported msg type: " + msg.type)
           }
         }catch(err){
           console.error(err);
-          alert("error");
         }
       }
     </script>

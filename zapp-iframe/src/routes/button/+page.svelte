@@ -3,12 +3,9 @@
     import icon from '$lib/assets/openbutton_beta1.svg';
 	import { onMount } from 'svelte';
     let open = $state(false);
-
 	
 	onMount(()=>{
 		window.addEventListener("message", (event) => {
-			// if (event.origin !== "http://localhost:3000") return; // security check
-			console.log("Child received:", event.data);
 			const msg = event.data;
 			if(msg.type === "state"){
 				open = msg.state;
@@ -33,9 +30,6 @@
 		aria-haspopup="true"
 		onclick={() => {
 			open = !open;
-			// var data = { foo: 'bar' }
-			// var event = new CustomEvent('myCustomEvent', { detail: data })
-			// window.parent.document.dispatchEvent(event)
 			window.parent.postMessage(JSON.stringify({type: "buttonclick"}), "*")
 		}}
 	>
