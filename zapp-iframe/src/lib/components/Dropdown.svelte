@@ -45,10 +45,11 @@
 	let loaded: { [key: string]: boolean } = $state({});
 	let root: HTMLElement;
 
-	onMount(() => {
+	$effect(() => {
 		console.log('mounted dropdown');
 		console.log(root.getBoundingClientRect());
 		if (root.getBoundingClientRect().height != 0) {
+			console.log("sending rect")
 			window.parent.postMessage(
 				JSON.stringify({ type: 'dropdown-box', box: root.getBoundingClientRect() }),
 				'*'

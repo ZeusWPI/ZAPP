@@ -5,6 +5,7 @@
 
 	let position = $state({left: 0, top: 0});
 	let open = $state(false);
+	let loaded = $state(false);
 	let loadimages = $state(false);
 	
 
@@ -18,6 +19,7 @@
 			if(msg.type === "rect"){
 				position = {left: event.data.rect.x, top: event.data.rect.y}
 				open = !open;
+				loaded = true;
 				loadimages = true;
 				console.log("opened")
 				window.parent.postMessage(JSON.stringify({type: "state", state: open}), "*")
@@ -36,7 +38,7 @@
 </script>
 
 <div id="dropdown">
-	<Dropdown {open} {loadimages} />
+	<Dropdown bind:open={open} {loadimages} />
 </div>
 
 <style>
