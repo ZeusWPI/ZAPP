@@ -5,16 +5,28 @@
     let open = $state(false);
 
 	
-	
+	onMount(()=>{
+		window.addEventListener("message", (event) => {
+			// if (event.origin !== "http://localhost:3000") return; // security check
+			console.log("Child received:", event.data);
+			const msg = event.data;
+			if(msg.type === "state"){
+				open = msg.state;
+			}else if(msg.type === "outsideclick"){
+				console.log("outsideclick")
+				open = false;
+			}
+		});
+	})
 	
 </script>
 
-<div class={'zappbutton ' + (open ? 'rotated' : '')} style="width: 2.8em; aspect-ratio: 1 / 1;">
+<div style="width: 3.64em; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;">
 	<button
 		type="button"
-		class="inline-flex justify-center items-center rounded-lg text-white font-bold text-xl shadow-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200"
+		class={`zappbutton ${(open ? 'rotated' : '')} inline-flex justify-center items-center rounded-lg text-white font-bold text-xl shadow-lg hover:bg-orange-600 focus:outline-none transition-all duration-200`}
 		id="menu-button"
-		style="width: 100%; height: 100%"
+		style="width: 77%; height: 77%"
 		part="openbutton"
 		aria-expanded={true}
         aria-label="zapp button"
@@ -24,7 +36,7 @@
 			// var data = { foo: 'bar' }
 			// var event = new CustomEvent('myCustomEvent', { detail: data })
 			// window.parent.document.dispatchEvent(event)
-			window.parent.postMessage(JSON.stringify({type: "buttonclick", state: open}), "http://localhost:3000")
+			window.parent.postMessage(JSON.stringify({type: "buttonclick"}), "*")
 		}}
 	>
 		<img style="width: 100%; aspect-ratio: 1;" part="zappicon" src={icon} alt="zapp button" />

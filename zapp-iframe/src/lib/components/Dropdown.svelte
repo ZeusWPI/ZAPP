@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
+	let { open = $bindable(), loadimages } = $props();
+
 	const apps = [
 		{ img: 'git.png', url: 'https://git.zeus.gent', tooltip: 'Git', visible: false },
 		{
@@ -41,17 +43,18 @@
 	];
 
 	let loaded: { [key: string]: boolean } = $state({});
-    let root: HTMLElement;
+	let root: HTMLElement;
 
 	onMount(() => {
-		console.log("mounted dropdown")
-		console.log(root.getBoundingClientRect())
-		if(root.getBoundingClientRect().height != 0){
+		console.log('mounted dropdown');
+		console.log(root.getBoundingClientRect());
+		if (root.getBoundingClientRect().height != 0) {
 			window.parent.postMessage(
 				JSON.stringify({ type: 'dropdown-box', box: root.getBoundingClientRect() }),
-				'http://localhost:3000'
+				'*'
 			);
 		}
+
 	});
 </script>
 
@@ -61,12 +64,12 @@
 	aria-orientation="vertical"
 	aria-labelledby="menu-button"
 	part="dropdown"
-    bind:this={root}
-	onload={()=> {
-		console.log("sending rect")
+	bind:this={root}
+	onload={() => {
+		console.log('sending rect');
 		window.parent.postMessage(
 			JSON.stringify({ type: 'dropdown-box', box: root.getBoundingClientRect() }),
-			'http://localhost:3000'
+			'*'
 		);
 	}}
 >
@@ -83,6 +86,7 @@
 			aria-label="Close"
 			onclick={() => {
 				open = false;
+				window.parent.postMessage(JSON.stringify({ type: 'state', state: open }), '*');
 			}}
 		>
 			⏻
@@ -119,17 +123,19 @@
 											role="menuitem"
 											aria-label={app.img}
 										>
-											<img
-												src={`/images/services/${app.img}`}
-												alt={app.img}
-												onload={(target) => {
-													loaded[i] = true;
-													loaded = { ...loaded };
-												}}
-												class={'w95icon easeload ' +
-													(loaded[i] ? 'visible ' : '') +
-													(app.class ?? '')}
-											/>
+											{#if loadimages}
+												<img
+													src={`/images/services/${app.img}`}
+													alt={app.img}
+													onload={(target) => {
+														loaded[i] = true;
+														loaded = { ...loaded };
+													}}
+													class={'w95icon easeload ' +
+														(loaded[i] ? 'visible ' : '') +
+														(app.class ?? '')}
+												/>
+											{/if}
 										</button>
 									</div>
 								</div>

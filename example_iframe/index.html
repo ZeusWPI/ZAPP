@@ -31,7 +31,8 @@
             path.some((n) => n && n.id === 'zappdropdown');
           if (!clickedInside) {
             console.log("outside")
-            document.getElementById("zappdropdown").contentWindow.postMessage({type: "outsideclick"}, "http://localhost:5173")
+            document.getElementById("zappdropdown").contentWindow.postMessage({type: "outsideclick"}, "*")
+            document.getElementById("zappbutton").contentWindow.postMessage({type: "outsideclick"}, "*")
           }
         };
         window.addEventListener("click", outsideclickhandler)
@@ -44,20 +45,77 @@
         let setsize = false;
         let opened = false;
 
+        const GAP = 4;
+
+        function position(root, rect){
+          const w = parseFloat(root.style.width) || root.offsetWidth;
+          const h = parseFloat(root.style.height) || root.offsetHeight;
+
+          const vw = window.innerWidth;
+          const vh = window.innerHeight;
+
+          let left = rect.x;
+          let topBelow = rect.y + rect.height + GAP;
+          let top = topBelow;
+
+          // Horizontal clamp
+          if(left + w > vw - GAP) left = Math.max(GAP, vw - w - GAP);
+          if(left < GAP) left = GAP;
+
+          // Prefer below, fallback above if overflow
+          if(top + h > vh - GAP){
+            const topAbove = rect.y - h - GAP;
+            if(topAbove >= GAP){
+              top = topAbove;
+            }else{
+              // Clamp inside viewport
+              top = Math.max(GAP, Math.min(top, vh - h - GAP));
+            }
+          }
+
+          root.style.left = left + "px";
+          root.style.top = top + "px";
+        }
+
+        function openAnimation(){
+          console.log("open animation")
+          const root = document.getElementById("zappdropdown");
+          const rect = box;
+          
+          // Avoid duplicating listeners
+          if(!root._repositionBound){
+            const handler = () => position(root, rect);
+            window.addEventListener("resize", handler);
+            window.addEventListener("scroll", handler, true);
+            root._repositionBound = true;
+          }
+
+          if(!opened) return;
+          position(root, rect);
+        }
+
+        let box = {x: 0, y: 0, height: 0, width: 0};
+
         try{
           let msg = JSON.parse(e.data);
           if(msg.type === "buttonclick"){
             opened = !opened;
-            const box = document.getElementById("zappbutton").getBoundingClientRect();
-            document.getElementById("zappdropdown").style.left = `${box.x}px`;
-            document.getElementById("zappdropdown").style.top = `calc(${box.y + box.height}px + 0.2rem)`;
+            box = document.getElementById("zappbutton").getBoundingClientRect();
+            // document.getElementById("zappdropdown").style.left = `${box.x}px`;
+            // document.getElementById("zappdropdown").style.top = `calc(${box.y + box.height}px + 0.2rem)`;
             document.getElementById("zappdropdown").style.display = opened ? "block" : "none";
-            document.getElementById("zappdropdown").contentWindow.postMessage({type: 'rect', rect: box}, "http://localhost:5173")
+            document.getElementById("zappdropdown").contentWindow.postMessage({type: 'rect', rect: box}, "*")
+            if(opened) openAnimation();
+
           }else if(msg.type === "dropdown-box" && !setsize){
             setsize = true;
             document.getElementById("zappdropdown").style.width = `${msg.box.width}px`;
             document.getElementById("zappdropdown").style.height = `${msg.box.height + 7}px`;
             console.log("set dropdown iframe size")
+          }else if(msg.type === "state"){
+            opened = msg.state;
+            document.getElementById("zappdropdown").style.display = opened ? "block" : "none";
+            document.getElementById("zappbutton").contentWindow.postMessage(msg, "*")
           }
           else{
             alert("no supported msg type: " + msg.type)
@@ -84,7 +142,7 @@
       <iframe
         id="zappbutton"
         src="http://localhost:5173/button"
-        style="height: 2.8em; aspect-ratio: 1 / 1; border: none"
+        style="height: 3.7em; aspect-ratio: 1 / 1; border: none; overflow: hidden; scrollbar-width: 0;"
       >
       </iframe>
     </div>
@@ -94,5 +152,15 @@
       src="http://localhost:5173/dropdown"
       style="border-style: none; position: absolute; left: 0; top: 0; height: 100vh; width: 100vw; overflow: hidden; display: none;"
     />
+
+
+
+    <p style="color: white;">kqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdf
+      kqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdf
+      kqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdf
+      kqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdf
+      kqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdf
+      kqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdfkqsjmdlkfjqksljdflkmqjsdlmkfjqlksdmfjklqsdjfklqjdslkfjqlsdfjlqksdfjqdsjmfjmqlksdjflkqjsdflkjqsdf
+    </p>
   </body>
 </html>

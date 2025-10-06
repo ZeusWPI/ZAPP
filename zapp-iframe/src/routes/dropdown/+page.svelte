@@ -5,6 +5,7 @@
 
 	let position = $state({left: 0, top: 0});
 	let open = $state(false);
+	let loadimages = $state(false);
 	
 
 	onMount(()=>{
@@ -16,11 +17,14 @@
 			const msg = event.data;
 			if(msg.type === "rect"){
 				position = {left: event.data.rect.x, top: event.data.rect.y}
-				open = true;
+				open = !open;
+				loadimages = true;
 				console.log("opened")
+				window.parent.postMessage(JSON.stringify({type: "state", state: open}), "*")
 			}else if(msg.type === "outsideclick"){
 				console.log("outsideclick")
 				open = false;
+				window.parent.postMessage(JSON.stringify({type: "state", state: open}), "*")
 			}
 		});
 
@@ -32,9 +36,7 @@
 </script>
 
 <div id="dropdown">
-	{#if open}
-		<Dropdown />
-	{/if}
+	<Dropdown {open} {loadimages} />
 </div>
 
 <style>
