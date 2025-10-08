@@ -7,19 +7,6 @@
     <title>HTML 5 Boilerplate</title>
     <link rel="stylesheet" href="style.css" />
 
-    <script
-      type="module"
-      src="https://zapp.zeus.gent/zapp-components/zapp-components.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://zapp.zeus.gent/zapp-components/zapp-components.js"
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://zapp.zeus.gent/zapp-components/assets/global.css"
-    />
-
     <script>
 
       let setsize = false;
@@ -103,7 +90,6 @@
             dropheight = msg.box.height;
             dropdown.style.width = `${dropwidth}px`;
             dropdown.style.height = `${dropheight + 7}px`;
-            console.log("set dropdown iframe size");
           }else if(msg.type === "state"){
             opened = msg.state;
             dropdown.style.visibility = opened ? "visible" : "hidden";
@@ -126,27 +112,21 @@
       <a href="#contact">Contact</a>
       <a href="#about">About</a>
 
-      <div style="height: 2.8em; aspect-ratio: 1 / 1">
-        <zapp-v01 />
-      </div>
-
       <div style="flex: 1;"></div>
 
       <iframe
         id="zappbutton"
-        src="http://localhost:5173/zapp-iframe/button"
+        src="https://zapp.zeus.gent/zapp-iframe/button.html"
         style="height: 3.7em; aspect-ratio: 1 / 1; border: none; overflow: hidden; scrollbar-width: 0;"
       >
       </iframe>
     </div>
 
-    <div style="overflow: hidden;">
-      <iframe
-        id="zappdropdown"
-        src="http://localhost:5173/zapp-iframe/dropdown"
-        style="border-style: none; position: absolute; left: 0; top: 0; height: 100vh; width: 100vw; overflow: hidden; visibility: hidden;"
-      />
-    </div>
+    <iframe
+      id="zappdropdown"
+      src="https://zapp.zeus.gent/zapp-iframe/dropdown.html"
+      style="border-style: none; position: absolute; left: 0; top: 0; height: 100vh; width: 100vw; overflow: hidden; visibility: hidden;"
+    />
 
 
 

@@ -36,6 +36,8 @@ RUN printf '%s\n' \
     '  setenv.add-response-header = (' \
     '    "Access-Control-Allow-Methods" => "GET, HEAD, OPTIONS",' \
     '    "Access-Control-Allow-Headers" => "Origin, X-Requested-With, Content-Type, Accept, Authorization",' \
+    '    "Content-Security-Policy" => "frame-ancestors self https://*.zeus.gent https://zeus.gent",' \
+    '    "X-Frame-Options" => "ALLOW-FROM https://*.zeus.gent",' \
     '    "Access-Control-Max-Age" => "86400"' \
     '  )' \
     '}' \
