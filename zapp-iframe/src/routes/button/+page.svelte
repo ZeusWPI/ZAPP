@@ -18,7 +18,7 @@
 	
 </script>
 
-<div style="width: 3.64em; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;">
+<div style="width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;">
 	<button
 		type="button"
 		class={`zappbutton ${(open ? 'rotated' : '')} inline-flex justify-center items-center rounded-lg text-white font-bold text-xl shadow-lg hover:bg-orange-600 focus:outline-none transition-all duration-200`}
