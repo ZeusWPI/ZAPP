@@ -1,7 +1,10 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { asset } from '$app/paths';
 
-	let { open = $bindable(), loadimages } = $props();
+	let {loadimages} = $props();
+
+	// let loadimages = true;
+	let open = $state(false);
 
 	const apps = [
 		{ img: 'git.png', url: 'https://git.zeus.gent', tooltip: 'Git', visible: false },
@@ -46,10 +49,10 @@
 	let root: HTMLElement;
 
 	$effect(() => {
-		console.log('mounted dropdown');
-		console.log(root.getBoundingClientRect());
+		//console.log('mounted dropdown');
+		//console.log(root.getBoundingClientRect());
 		if (root.getBoundingClientRect().height != 0) {
-			console.log("sending rect")
+			//console.log("sending rect")
 			window.parent.postMessage(
 				JSON.stringify({ type: 'dropdown-box', box: root.getBoundingClientRect() }),
 				'*'
@@ -67,7 +70,7 @@
 	part="dropdown"
 	bind:this={root}
 	onload={() => {
-		console.log('sending rect');
+		//console.log('sending rect');
 		window.parent.postMessage(
 			JSON.stringify({ type: 'dropdown-box', box: root.getBoundingClientRect() }),
 			'*'
@@ -126,7 +129,7 @@
 										>
 											{#if loadimages}
 												<img
-													src={`/images/services/${app.img}`}
+													src={asset(`/images/services/${app.img}`)}
 													alt={app.img}
 													onload={(target) => {
 														loaded[i] = true;

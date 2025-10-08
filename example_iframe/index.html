@@ -37,6 +37,7 @@
           const dropdown = document.getElementById("zappdropdown");
           dropdown.contentWindow.postMessage({type: "outsideclick"}, "*")
           document.getElementById("zappbutton").contentWindow.postMessage({type: "outsideclick"}, "*")
+          dropdown.contentWindow.postMessage({type: "outsideclick"}, "*")
           dropdown.style.visibility = opened ? "visible" : "hidden";
         }
       };
@@ -93,6 +94,7 @@
           if(msg.type === "buttonclick"){
             opened = !opened;
             dropdown.style.visibility = opened ? "visible" : "hidden";
+            dropdown.contentWindow.postMessage({type: 'state', state: opened}, "*")
             if(opened) openAnimation();
           }else if(msg.type === "dropdown-box" && !setsize){
             setsize = true;
@@ -129,7 +131,7 @@
 
       <iframe
         id="zappbutton"
-        src="http://localhost:5173/button"
+        src="http://localhost:5173/zapp-iframe/button"
         style="height: 3.7em; aspect-ratio: 1 / 1; border: none; overflow: hidden; scrollbar-width: 0;"
       >
       </iframe>
@@ -137,7 +139,7 @@
 
     <iframe
       id="zappdropdown"
-      src="http://localhost:5173/dropdown"
+      src="http://localhost:5173/zapp-iframe/dropdown"
       style="border-style: none; position: absolute; left: 0; top: 0; height: 100vh; width: 100vw; overflow: hidden; visibility: hidden;"
     />
 

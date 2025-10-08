@@ -10,6 +10,7 @@ RUN mkdir -p /var/log/lighttpd /run/lighttpd /var/www/localhost/htdocs
 # Copy build artifacts into the document root
 # Ensure your build context contains zapp-components/dist
 COPY zapp-components/dist/ /var/www/localhost/htdocs/
+COPY zapp-iframe/build/ /var/www/localhost/htdocs/zapp-iframe
 
 # Set sane permissions
 RUN chown -R lighttpd:lighttpd /var/www/localhost/htdocs /var/log/lighttpd /run/lighttpd

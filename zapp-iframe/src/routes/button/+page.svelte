@@ -10,7 +10,7 @@
 			if(msg.type === "state"){
 				open = msg.state;
 			}else if(msg.type === "outsideclick"){
-				console.log("outsideclick")
+				//console.log("outsideclick")
 				open = false;
 			}
 		});
