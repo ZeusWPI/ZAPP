@@ -1,6 +1,6 @@
-cd zapp-components
-npm run build
-cd ..
+# cd zapp-components
+# npm run build
+# cd ..
 cd zapp-iframe
 bun run build
 cd ..
