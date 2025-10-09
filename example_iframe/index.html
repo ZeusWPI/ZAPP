@@ -114,19 +114,20 @@
 
       <div style="flex: 1;"></div>
 
-      <iframe
+      <iframe sandbox="allow-scripts allow-popups"
         id="zappbutton"
         src="https://zapp.zeus.gent/zapp-iframe/button.html"
         style="height: 3.7em; aspect-ratio: 1 / 1; border: none; overflow: hidden; scrollbar-width: 0;"
-      >
-      </iframe>
+      ></iframe>
+      
     </div>
 
-    <iframe
+    <!-- ALTIJD IN DE ROOT BODY ZETTEN -->
+    <iframe sandbox="allow-scripts allow-popups"
       id="zappdropdown"
       src="https://zapp.zeus.gent/zapp-iframe/dropdown.html"
-      style="border-style: none; position: absolute; left: 0; top: 0; height: 100vh; width: 100vw; overflow: hidden; visibility: hidden;"
-    />
+      style="border-style: none; z-index: 200; position: absolute; left: 0; top: 0; height: 0vh; width: 0vw; overflow: hidden; visibility: hidden;"
+    ></iframe>
 
 
 
