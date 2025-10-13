@@ -23,7 +23,7 @@
 		type="button"
 		class={`zappbutton ${(open ? 'rotated' : '')} inline-flex justify-center items-center rounded-lg text-white font-bold text-xl shadow-lg hover:bg-orange-600 focus:outline-none transition-all duration-200`}
 		id="menu-button"
-		style="width: 77%; height: 77%"
+		style="width: 77%; height: 77%; cursor: pointer;"
 		part="openbutton"
 		aria-expanded={true}
         aria-label="zapp button"
