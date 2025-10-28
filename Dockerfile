@@ -30,14 +30,14 @@ RUN printf '%s\n' \
     'server.modules += ( "mod_setenv" )' \
     'setenv.add-response-header = (' \
     '  "Access-Control-Allow-Origin" => "*",' \
-    "  \"Content-Security-Policy\" => \"frame-ancestors \'self\' https://*.zeus.gent https://zeus.gent https://zeus.ugent.be https://*.zeus.ugent.be\"," \
+    "  \"Content-Security-Policy\" => \"frame-ancestors \'self\' https://*.zeus.gent https://zeus.gent https://zeus.ugent.be https://*.zeus.ugent.be http://localhost:3000\"," \
     '  "Access-Control-Allow-Credentials" => "true"' \
     ')' \
     '$HTTP["request-method"] == "OPTIONS" {' \
     '  setenv.add-response-header = (' \
     '    "Access-Control-Allow-Methods" => "GET, HEAD, OPTIONS",' \
     '    "Access-Control-Allow-Headers" => "Origin, X-Requested-With, Content-Type, Accept, Authorization",' \
-    "  \"Content-Security-Policy\" => \"frame-ancestors \'self\' https://*.zeus.gent https://zeus.gent https://zeus.ugent.be https://*.zeus.ugent.be\"," \
+    "  \"Content-Security-Policy\" => \"frame-ancestors \'self\' https://*.zeus.gent https://zeus.gent https://zeus.ugent.be https://*.zeus.ugent.be http://localhost:3000\"," \
     '    "Access-Control-Max-Age" => "86400"' \
     '  )' \
     '}' \
