@@ -2,6 +2,9 @@
 ### Zeus App Picker Portal
 
 Ontdek en navigeer tussen Zeus services via een globale app switcher component.
+<img width="538" height="730" alt="image" src="https://github.com/user-attachments/assets/8efdf050-0c37-4782-b673-61a11706b341" />
+
+
 
 Doordat Zapp apart gehost wordt, moet enkel Zapp geupdate worden voor een verandering en niet elke website waar het deployed is.
 
