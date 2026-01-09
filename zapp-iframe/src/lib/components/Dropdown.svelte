@@ -8,12 +8,12 @@
 	let labelson = $state(true);
 
 	const apps = [
-		{ img: 'git.png', url: 'https://git.zeus.gent', tooltip: 'Git', label: "GIT", visible: false },
+		{ img: 'git.png', url: 'https://git.zeus.gent', tooltip: 'Git', label: 'GIT', visible: false },
 		{
 			img: 'zess.svg',
 			url: 'https://zess.zeus.gent',
 			tooltip: 'ZESS: Kelder logs',
-			label: 'kelder logs',
+			label: 'Kelder logs',
 			visible: false
 		},
 		{
@@ -21,24 +21,42 @@
 			url: 'https://mattermost.zeus.gent',
 			class: 'mattermost',
 			tooltip: 'Chat',
-			label: "Chat",
+			label: 'Chat',
 			visible: false
 		},
 		{
 			img: 'haldis_black.png',
 			url: 'https://haldis.zeus.gent',
 			tooltip: 'Haldis: Eten bestellen',
-			label: "Bestellen",
+			label: 'Bestellen',
 			visible: false
 		},
-		{ img: 'tap.ico', url: 'https://tap.zeus.gent', tooltip: 'TAP: Drank kopen', label: "Drank", visible: false },
-		{ img: 'tab.ico', url: 'https://tab.zeus.gent', tooltip: 'TAB: Geld beheren', label: "betalen", visible: false },
-		{ img: 'zeus.svg', url: 'https://zeus.gent', tooltip: 'Zeus site', label: "site", visible: false },
+		{
+			img: 'tap.ico',
+			url: 'https://tap.zeus.gent',
+			tooltip: 'TAP: Drank kopen',
+			label: 'Drank',
+			visible: false
+		},
+		{
+			img: 'tab.ico',
+			url: 'https://tab.zeus.gent',
+			tooltip: 'TAB: Geld beheren',
+			label: 'Betalen',
+			visible: false
+		},
+		{
+			img: 'zeus.svg',
+			url: 'https://zeus.gent',
+			tooltip: 'Zeus site',
+			label: 'Site',
+			visible: false
+		},
 		{
 			img: 'codimd.png',
 			url: 'https://codimd.zeus.gent',
 			tooltip: 'CodiMD: Notities',
-			label: "Notes",
+			label: 'Notes',
 			visible: false
 		},
 		{
@@ -46,7 +64,7 @@
 			url: 'https://zauth.zeus.gent',
 			class: 'profile',
 			tooltip: 'Zauth profiel',
-			label: "profiel",
+			label: 'Profiel',
 			visible: false
 		}
 	];
@@ -64,7 +82,39 @@
 				'*'
 			);
 		}
+		
+		const cookie = getCookie('zapp-labelson');
+		if(!cookie) labelson = true;
+		else labelson = cookie === "true";
 	});
+
+	function toggleLabels() {
+		labelson = !labelson;
+		setCookie('zapp-labelson', labelson, 365);
+	}
+
+	function setCookie(cname: string, cvalue: any, exdays: number) {
+		const d = new Date();
+		d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+		let expires = 'expires=' + d.toUTCString();
+		document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+	}
+
+	function getCookie(cname: string) {
+		let name = cname + '=';
+		let decodedCookie = decodeURIComponent(document.cookie);
+		let ca = decodedCookie.split(';');
+		for (let i = 0; i < ca.length; i++) {
+			let c = ca[i];
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return null;
+	}
 </script>
 
 <div
@@ -84,7 +134,14 @@
 >
 	<div class="topbar">
 		<div class="button buttona" title="Zeus App Picker Portal">ZAPP V1</div>
-		<div style="cursor: pointer;" onclick={e=> labelson = !labelson} class="button buttonb" title="coming soon™">LABELS</div>
+		<div
+			style="cursor: pointer;"
+			onclick={toggleLabels}
+			class="button buttonb"
+			title="coming soon™"
+		>
+			LABELS
+		</div>
 		<div class="button buttonc" title="coming soon™">LOGIN</div>
 		<a href="https://git.zeus.gent/roparet/zapp" target="_blank">
 			<div class="button buttond">SOURCE</div>
@@ -107,9 +164,9 @@
 				<div class="dborder dborder4">
 					<div class="cborder1 container p-4">
 						<div class="noisyspectrumbg absolute inset-0 -z-10 rounded-md"></div>
-						<div class="grid grid-cols-3 gap-x-5 gap-y-5" role="none">
+						<div class="grid grid-cols-3 gap-x-5 gap-y-6" role="none">
 							{#each apps as app, i}
-								<div class="w-25 h-25">
+								<div class={`w-25 ${labelson ? 'h-26' : 'h-25'}`}>
 									<a
 										href={app.url}
 										target="_blank"
@@ -133,27 +190,22 @@
 											aria-label={app.img}
 										>
 											{#if loadimages}
-												<div class="flex flex-col items-center justify-center">
-													<div style="aspect-ratio: 1">
-														<img
-															src={asset(`/images/services/${app.img}`)}
-															alt={app.img}
-															onload={(target) => {
-																loaded[i] = true;
-																loaded = { ...loaded };
-															}}
-															class={'w95icon easeload ' +
-																(loaded[i] ? 'visible ' : '') +
-																(app.class ?? '') + 
-																(labelson ? 'labelson' : '')}
-														/>
-													</div>
-													{#if labelson}
-														<span style="color: black;" class="applabel">{app.label}</span>
-													{/if}
-												</div>
+												<img
+													src={asset(`/images/services/${app.img}`)}
+													alt={app.img}
+													onload={(target) => {
+														loaded[i] = true;
+														loaded = { ...loaded };
+													}}
+													class={'w95icon easeload ' +
+														(loaded[i] ? 'visible ' : '') +
+														(app.class ?? '')}
+												/>
 											{/if}
 										</button>
+										{#if labelson}
+											<p style="color: black;" class="applabel">{app.label}</p>
+										{/if}
 									</div>
 								</div>
 							{/each}

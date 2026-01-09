@@ -132,17 +132,13 @@ main {
 
 .w95icon {
   width: 4.4em;
-  height: 4.4em;
+  height: auto;
   z-index: 100;
   filter: none;
   border-radius: 3px;
   filter: drop-shadow(4px 4px rgba(0, 0, 0, 0.329)) url(#icongrain);
 }
 
-.labelson{
-  width: 4.0em;
-  height: 4.0em;
-} 
 
 .w95button:before {
   content: ' ';
