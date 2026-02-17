@@ -82,7 +82,7 @@
 				'*'
 			);
 		}
-		
+
 		const cookie = getCookie('zapp-labelson');
 		if(!cookie) labelson = true;
 		else labelson = cookie === "true";
@@ -173,6 +173,10 @@
 										class="w95in1 w-25 h-25 style absolute"
 										aria-label={app.img}
 										title={app.tooltip}
+										onclick={(event) => {
+											window.parent.postMessage(JSON.stringify({ type: 'open-link', url: app.url }), '*');
+											event.preventDefault();
+										}}
 									>
 										<div class="bborder bborder1">
 											<div class="bborder bborder2">
