@@ -54,8 +54,8 @@
 		},
 		{
 			img: 'codimd.png',
-			url: 'https://codimd.zeus.gent',
-			tooltip: 'CodiMD: Notities',
+			url: 'https://notes.zeus.gent',
+			tooltip: 'Hedgedoc: Notities',
 			label: 'Notes',
 			visible: false
 		},
