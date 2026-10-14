@@ -91,6 +91,9 @@ window.onmessage = function (e) {
       opened = msg.state;
       dropdown.style.visibility = opened ? "visible" : "hidden";
       button.contentWindow.postMessage(msg, "*");
+    } else if (msg.type === "open-link") {
+      window.open(msg.url, '_blank').focus();
+      button.contentWindow.postMessage(msg, "*");
     } else {
       console.error("no supported msg type: " + msg.type);
     }
