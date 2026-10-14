@@ -143,7 +143,7 @@
 			LABELS
 		</div>
 		<div class="button buttonc" title="coming soon™">LOGIN</div>
-		<a href="https://git.zeus.gent/roparet/zapp" target="_blank">
+		<a href="https://github.com/ZeusWPI/ZAPP" target="_blank">
 			<div class="button buttond">SOURCE</div>
 		</a>
 		<button
